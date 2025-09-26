@@ -1,0 +1,2154 @@
+[
+  {
+    "text": "Question: How many pods are running in namespace production?\nQuery: sum(kube_pod_status_phase{phase=\"Running\", namespace=\"production\"})\nDescription: Counts pods in Running state in specific namespace production\nReturns: Number of running pods in production",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Pod",
+    "section": "Pod",
+    "subsection": null,
+    "query": "sum(kube_pod_status_phase{phase=\"Running\", namespace=\"production\"})",
+    "metadata": {
+      "user_question": "How many pods are running in namespace production?",
+      "description": "Counts pods in Running state in specific namespace production",
+      "returns": "Number of running pods in production",
+      "row_index": 0
+    }
+  },
+  {
+    "text": "Question: Which nginx pods are not ready in namespace default?\nQuery: kube_pod_status_ready{condition=\"false\", namespace=\"default\", pod=~\"nginx-.*\"}\nDescription: Shows nginx pods that are not ready to handle traffic in specific namespace\nReturns: List of unready nginx pods in default",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Pod",
+    "section": "Pod",
+    "subsection": null,
+    "query": "kube_pod_status_ready{condition=\"false\", namespace=\"default\", pod=~\"nginx-.*\"}",
+    "metadata": {
+      "user_question": "Which nginx pods are not ready in namespace default?",
+      "description": "Shows nginx pods that are not ready to handle traffic in specific namespace",
+      "returns": "List of unready nginx pods in default",
+      "row_index": 1
+    }
+  },
+  {
+    "text": "Question: How many restarts does the app container have in namespace default?\nQuery: kube_pod_container_status_restarts_total{namespace=\"default\", container=\"app\"}\nDescription: Returns restart count for specified container in specific namespace\nReturns: Number of app container restarts in default",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Pod",
+    "section": "Pod",
+    "subsection": null,
+    "query": "kube_pod_container_status_restarts_total{namespace=\"default\", container=\"app\"}",
+    "metadata": {
+      "user_question": "How many restarts does the app container have in namespace default?",
+      "description": "Returns restart count for specified container in specific namespace",
+      "returns": "Number of app container restarts in default",
+      "row_index": 2
+    }
+  },
+  {
+    "text": "Question: Which containers have more than 10 restarts in production?\nQuery: topk(5, kube_pod_container_status_restarts_total{namespace=~\"prod.*\"}) > 10\nDescription: Top 5 containers with highest restart count in production namespaces\nReturns: Ranking of unstable containers in production",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Pod",
+    "section": "Pod",
+    "subsection": null,
+    "query": "topk(5, kube_pod_container_status_restarts_total{namespace=~\"prod.*\"}) > 10",
+    "metadata": {
+      "user_question": "Which containers have more than 10 restarts in production?",
+      "description": "Top 5 containers with highest restart count in production namespaces",
+      "returns": "Ranking of unstable containers in production",
+      "row_index": 3
+    }
+  },
+  {
+    "text": "Question: What information do nginx containers have in production?\nQuery: kube_pod_container_info{namespace=\"production\", pod=~\"nginx-.*\"}\nDescription: Returns detailed information about nginx containers in specified namespace\nReturns: Nginx container metadata with image information",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Pod",
+    "section": "Pod",
+    "subsection": null,
+    "query": "kube_pod_container_info{namespace=\"production\", pod=~\"nginx-.*\"}",
+    "metadata": {
+      "user_question": "What information do nginx containers have in production?",
+      "description": "Returns detailed information about nginx containers in specified namespace",
+      "returns": "Nginx container metadata with image information",
+      "row_index": 4
+    }
+  },
+  {
+    "text": "Question: How many pods are on each node excluding system pods?\nQuery: count by (node) (kube_pod_info{namespace!~\"kube-.*\"})\nDescription: Counts number of application pods on each node excluding system pods\nReturns: Application pod distribution per node",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Pod",
+    "section": "Pod",
+    "subsection": null,
+    "query": "count by (node) (kube_pod_info{namespace!~\"kube-.*\"})",
+    "metadata": {
+      "user_question": "How many pods are on each node excluding system pods?",
+      "description": "Counts number of application pods on each node excluding system pods",
+      "returns": "Application pod distribution per node",
+      "row_index": 5
+    }
+  },
+  {
+    "text": "Question: Which pods are waiting for scheduling?\nQuery: sum by (namespace) (kube_pod_status_phase{phase=\"Pending\"} * on(namespace, pod) kube_pod_status_scheduled{condition=\"false\"})\nDescription: Returns pods in Pending state that have not been scheduled to nodes yet\nReturns: Number of pods awaiting scheduling by namespace",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Pod",
+    "section": "Pod",
+    "subsection": null,
+    "query": "sum by (namespace) (kube_pod_status_phase{phase=\"Pending\"} * on(namespace, pod) kube_pod_status_scheduled{condition=\"false\"})",
+    "metadata": {
+      "user_question": "Which pods are waiting for scheduling?",
+      "description": "Returns pods in Pending state that have not been scheduled to nodes yet",
+      "returns": "Number of pods awaiting scheduling by namespace",
+      "row_index": 6
+    }
+  },
+  {
+    "text": "Question: How many pods are in Failed state?\nQuery: sum(kube_pod_status_phase{phase=\"Failed\"})\nDescription: Counts all pods in Failed state across the cluster\nReturns: Total number of failed pods",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Pod",
+    "section": "Pod",
+    "subsection": null,
+    "query": "sum(kube_pod_status_phase{phase=\"Failed\"})",
+    "metadata": {
+      "user_question": "How many pods are in Failed state?",
+      "description": "Counts all pods in Failed state across the cluster",
+      "returns": "Total number of failed pods",
+      "row_index": 7
+    }
+  },
+  {
+    "text": "Question: Which pods are not ready in each namespace?\nQuery: sum by (namespace) (kube_pod_status_ready{condition=\"false\"})\nDescription: Counts pods that are not ready grouped by namespace\nReturns: Number of unready pods in each namespace",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Pod",
+    "section": "Pod",
+    "subsection": null,
+    "query": "sum by (namespace) (kube_pod_status_ready{condition=\"false\"})",
+    "metadata": {
+      "user_question": "Which pods are not ready in each namespace?",
+      "description": "Counts pods that are not ready grouped by namespace",
+      "returns": "Number of unready pods in each namespace",
+      "row_index": 8
+    }
+  },
+  {
+    "text": "Question: What pod status changes occurred in the last 5 minutes?\nQuery: sum by (namespace)(changes(kube_pod_status_ready{condition=\"true\"}[5m]))\nDescription: Monitors pod restarts in the last 5 minutes by namespace\nReturns: Number of pod readiness status changes",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Pod",
+    "section": "Pod",
+    "subsection": null,
+    "query": "sum by (namespace)(changes(kube_pod_status_ready{condition=\"true\"}[5m]))",
+    "metadata": {
+      "user_question": "What pod status changes occurred in the last 5 minutes?",
+      "description": "Monitors pod restarts in the last 5 minutes by namespace",
+      "returns": "Number of pod readiness status changes",
+      "row_index": 9
+    }
+  },
+  {
+    "text": "Question: How many replicas does the nginx deployment have?\nQuery: kube_deployment_spec_replicas{deployment=\"nginx-deployment\"}\nDescription: Returns desired replica count for specific nginx deployment\nReturns: Number of desired nginx replicas",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Deployment",
+    "section": "Deployment",
+    "subsection": null,
+    "query": "kube_deployment_spec_replicas{deployment=\"nginx-deployment\"}",
+    "metadata": {
+      "user_question": "How many replicas does the nginx deployment have?",
+      "description": "Returns desired replica count for specific nginx deployment",
+      "returns": "Number of desired nginx replicas",
+      "row_index": 10
+    }
+  },
+  {
+    "text": "Question: How many nginx deployment replicas are available?\nQuery: kube_deployment_status_replicas_available{deployment=\"nginx-deployment\"}\nDescription: Returns available replica count for specified nginx deployment\nReturns: Number of available nginx replicas",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Deployment",
+    "section": "Deployment",
+    "subsection": null,
+    "query": "kube_deployment_status_replicas_available{deployment=\"nginx-deployment\"}",
+    "metadata": {
+      "user_question": "How many nginx deployment replicas are available?",
+      "description": "Returns available replica count for specified nginx deployment",
+      "returns": "Number of available nginx replicas",
+      "row_index": 11
+    }
+  },
+  {
+    "text": "Question: Which deployments in production have problems?\nQuery: (kube_deployment_spec_replicas{namespace=\"production\"} - kube_deployment_status_replicas_available{namespace=\"production\"}) > 0\nDescription: Detects deployments in production namespace with insufficient available replicas\nReturns: Problematic deployments in production",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Deployment",
+    "section": "Deployment",
+    "subsection": null,
+    "query": "(kube_deployment_spec_replicas{namespace=\"production\"} - kube_deployment_status_replicas_available{namespace=\"production\"}) > 0",
+    "metadata": {
+      "user_question": "Which deployments in production have problems?",
+      "description": "Detects deployments in production namespace with insufficient available replicas",
+      "returns": "Problematic deployments in production",
+      "row_index": 12
+    }
+  },
+  {
+    "text": "Question: Which deployments are being updated excluding system ones?\nQuery: kube_deployment_status_replicas_updated{namespace!=\"kube-system\"}\nDescription: Number of replicas being updated excluding system namespace\nReturns: Update status of application deployments",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Deployment",
+    "section": "Deployment",
+    "subsection": null,
+    "query": "kube_deployment_status_replicas_updated{namespace!=\"kube-system\"}",
+    "metadata": {
+      "user_question": "Which deployments are being updated excluding system ones?",
+      "description": "Number of replicas being updated excluding system namespace",
+      "returns": "Update status of application deployments",
+      "row_index": 13
+    }
+  },
+  {
+    "text": "Question: Which deployments are in the middle of rollout?\nQuery: kube_deployment_status_observed_generation{namespace=\"production\"} != kube_deployment_metadata_generation{namespace=\"production\"}\nDescription: Detects deployments in rollout when observed generation differs from metadata generation\nReturns: Deployments being updated in production",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Deployment",
+    "section": "Deployment",
+    "subsection": null,
+    "query": "kube_deployment_status_observed_generation{namespace=\"production\"} != kube_deployment_metadata_generation{namespace=\"production\"}",
+    "metadata": {
+      "user_question": "Which deployments are in the middle of rollout?",
+      "description": "Detects deployments in rollout when observed generation differs from metadata generation",
+      "returns": "Deployments being updated in production",
+      "row_index": 14
+    }
+  },
+  {
+    "text": "Question: What is the max unavailable strategy for API deployments?\nQuery: kube_deployment_spec_strategy_rollingupdate_max_unavailable{deployment=~\".*-api$\", namespace=\"production\"}\nDescription: Returns maximum number of unavailable replicas during rolling update for API deployments\nReturns: Max unavailable configuration for API deployments in production",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Deployment",
+    "section": "Deployment",
+    "subsection": null,
+    "query": "kube_deployment_spec_strategy_rollingupdate_max_unavailable{deployment=~\".*-api$\", namespace=\"production\"}",
+    "metadata": {
+      "user_question": "What is the max unavailable strategy for API deployments?",
+      "description": "Returns maximum number of unavailable replicas during rolling update for API deployments",
+      "returns": "Max unavailable configuration for API deployments in production",
+      "row_index": 15
+    }
+  },
+  {
+    "text": "Question: How many nodes are ready in the cluster?\nQuery: sum(kube_node_status_condition{condition=\"Ready\", status=\"true\"})\nDescription: Counts nodes in ready state across the cluster\nReturns: Total number of ready nodes",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Node",
+    "section": "Node",
+    "subsection": null,
+    "query": "sum(kube_node_status_condition{condition=\"Ready\", status=\"true\"})",
+    "metadata": {
+      "user_question": "How many nodes are ready in the cluster?",
+      "description": "Counts nodes in ready state across the cluster",
+      "returns": "Total number of ready nodes",
+      "row_index": 16
+    }
+  },
+  {
+    "text": "Question: What information do worker nodes have?\nQuery: kube_node_info{node=~\"worker-.*\"}\nDescription: Returns detailed information about worker nodes filtered by name\nReturns: Worker node metadata with component versions",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Node",
+    "section": "Node",
+    "subsection": null,
+    "query": "kube_node_info{node=~\"worker-.*\"}",
+    "metadata": {
+      "user_question": "What information do worker nodes have?",
+      "description": "Returns detailed information about worker nodes filtered by name",
+      "returns": "Worker node metadata with component versions",
+      "row_index": 17
+    }
+  },
+  {
+    "text": "Question: How much CPU does worker-1 node have?\nQuery: kube_node_status_capacity_cpu_cores{node=\"worker-1\"}\nDescription: Returns CPU capacity of specific worker-1 node\nReturns: Number of CPU cores on the node",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Node",
+    "section": "Node",
+    "subsection": null,
+    "query": "kube_node_status_capacity_cpu_cores{node=\"worker-1\"}",
+    "metadata": {
+      "user_question": "How much CPU does worker-1 node have?",
+      "description": "Returns CPU capacity of specific worker-1 node",
+      "returns": "Number of CPU cores on the node",
+      "row_index": 18
+    }
+  },
+  {
+    "text": "Question: Which nodes are unstable?\nQuery: sum(changes(kube_node_status_condition{status=\"true\",condition=\"Ready\"}[15m])) by (node) > 2\nDescription: Detects nodes with unstable readiness state in 15 minutes\nReturns: Nodes with frequent state changes",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Node",
+    "section": "Node",
+    "subsection": null,
+    "query": "sum(changes(kube_node_status_condition{status=\"true\",condition=\"Ready\"}[15m])) by (node) > 2",
+    "metadata": {
+      "user_question": "Which nodes are unstable?",
+      "description": "Detects nodes with unstable readiness state in 15 minutes",
+      "returns": "Nodes with frequent state changes",
+      "row_index": 19
+    }
+  },
+  {
+    "text": "Question: Which nodes have GPU-related taints?\nQuery: kube_node_spec_taint{effect=\"NoSchedule\", key=~\".*gpu.*\"}\nDescription: Returns nodes with NoSchedule taints related to GPU\nReturns: Nodes with GPU scheduling restrictions",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Node",
+    "section": "Node",
+    "subsection": null,
+    "query": "kube_node_spec_taint{effect=\"NoSchedule\", key=~\".*gpu.*\"}",
+    "metadata": {
+      "user_question": "Which nodes have GPU-related taints?",
+      "description": "Returns nodes with NoSchedule taints related to GPU",
+      "returns": "Nodes with GPU scheduling restrictions",
+      "row_index": 20
+    }
+  },
+  {
+    "text": "Question: How much memory is reserved by the system on worker nodes?\nQuery: (kube_node_status_capacity_memory_bytes{node=~\"worker-.*\"} - kube_node_status_allocatable_memory_bytes{node=~\"worker-.*\"}) / kube_node_status_capacity_memory_bytes{node=~\"worker-.*\"} * 100\nDescription: Calculates percentage of memory reserved by system on worker nodes\nReturns: Percentage of memory unavailable for pods on worker nodes",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Node",
+    "section": "Node",
+    "subsection": null,
+    "query": "(kube_node_status_capacity_memory_bytes{node=~\"worker-.*\"} - kube_node_status_allocatable_memory_bytes{node=~\"worker-.*\"}) / kube_node_status_capacity_memory_bytes{node=~\"worker-.*\"} * 100",
+    "metadata": {
+      "user_question": "How much memory is reserved by the system on worker nodes?",
+      "description": "Calculates percentage of memory reserved by system on worker nodes",
+      "returns": "Percentage of memory unavailable for pods on worker nodes",
+      "row_index": 21
+    }
+  },
+  {
+    "text": "Question: How many services end with '-service' in default?\nQuery: sum by (namespace) (kube_service_info{namespace=\"default\", service=~\".*-service\"})\nDescription: Counts services in default namespace with names ending in '-service'\nReturns: Number of services with name pattern in default",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Service",
+    "section": "Service",
+    "subsection": null,
+    "query": "sum by (namespace) (kube_service_info{namespace=\"default\", service=~\".*-service\"})",
+    "metadata": {
+      "user_question": "How many services end with '-service' in default?",
+      "description": "Counts services in default namespace with names ending in '-service'",
+      "returns": "Number of services with name pattern in default",
+      "row_index": 22
+    }
+  },
+  {
+    "text": "Question: How many services are in user namespaces?\nQuery: sum by (namespace) (kube_service_info{namespace!=\"kube-system\"})\nDescription: Counts services in each namespace excluding system namespace\nReturns: Number of services in application namespaces",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Service",
+    "section": "Service",
+    "subsection": null,
+    "query": "sum by (namespace) (kube_service_info{namespace!=\"kube-system\"})",
+    "metadata": {
+      "user_question": "How many services are in user namespaces?",
+      "description": "Counts services in each namespace excluding system namespace",
+      "returns": "Number of services in application namespaces",
+      "row_index": 23
+    }
+  },
+  {
+    "text": "Question: What endpoints are in production?\nQuery: kube_endpoint_info{namespace=\"production\"}\nDescription: Returns information about endpoints in production namespace\nReturns: Endpoint metadata in production environment",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Service",
+    "section": "Service",
+    "subsection": null,
+    "query": "kube_endpoint_info{namespace=\"production\"}",
+    "metadata": {
+      "user_question": "What endpoints are in production?",
+      "description": "Returns information about endpoints in production namespace",
+      "returns": "Endpoint metadata in production environment",
+      "row_index": 24
+    }
+  },
+  {
+    "text": "Question: Which LoadBalancer services are in production?\nQuery: kube_service_spec_type{type=\"LoadBalancer\", namespace=~\"prod.*\"}\nDescription: Returns LoadBalancer type services in production namespaces\nReturns: Services with external load balancer in production",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Service",
+    "section": "Service",
+    "subsection": null,
+    "query": "kube_service_spec_type{type=\"LoadBalancer\", namespace=~\"prod.*\"}",
+    "metadata": {
+      "user_question": "Which LoadBalancer services are in production?",
+      "description": "Returns LoadBalancer type services in production namespaces",
+      "returns": "Services with external load balancer in production",
+      "row_index": 25
+    }
+  },
+  {
+    "text": "Question: Which endpoints in production have no ready addresses?\nQuery: kube_endpoint_address_available{namespace=\"production\"} == 0\nDescription: Detects endpoints without available addresses in production namespace\nReturns: Endpoints without ready backends in production",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Service",
+    "section": "Service",
+    "subsection": null,
+    "query": "kube_endpoint_address_available{namespace=\"production\"} == 0",
+    "metadata": {
+      "user_question": "Which endpoints in production have no ready addresses?",
+      "description": "Detects endpoints without available addresses in production namespace",
+      "returns": "Endpoints without ready backends in production",
+      "row_index": 26
+    }
+  },
+  {
+    "text": "Question: How many replicas do database StatefulSets have?\nQuery: kube_statefulset_replicas{namespace=\"database\", statefulset=~\".*-db\"}\nDescription: Returns desired replica count for database StatefulSets\nReturns: Number of replicas for database StatefulSets",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "StatefulSet",
+    "section": "StatefulSet",
+    "subsection": null,
+    "query": "kube_statefulset_replicas{namespace=\"database\", statefulset=~\".*-db\"}",
+    "metadata": {
+      "user_question": "How many replicas do database StatefulSets have?",
+      "description": "Returns desired replica count for database StatefulSets",
+      "returns": "Number of replicas for database StatefulSets",
+      "row_index": 27
+    }
+  },
+  {
+    "text": "Question: How many MongoDB replicas are ready?\nQuery: kube_statefulset_status_replicas_ready{statefulset=\"mongodb-cluster\"}\nDescription: Returns ready replica count for specific MongoDB StatefulSet\nReturns: Number of ready MongoDB replicas",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "StatefulSet",
+    "section": "StatefulSet",
+    "subsection": null,
+    "query": "kube_statefulset_status_replicas_ready{statefulset=\"mongodb-cluster\"}",
+    "metadata": {
+      "user_question": "How many MongoDB replicas are ready?",
+      "description": "Returns ready replica count for specific MongoDB StatefulSet",
+      "returns": "Number of ready MongoDB replicas",
+      "row_index": 28
+    }
+  },
+  {
+    "text": "Question: How many node-exporter pods are scheduled?\nQuery: kube_daemonset_status_desired_number_scheduled{daemonset=\"node-exporter\"}\nDescription: Returns desired pod count for specific node-exporter DaemonSet\nReturns: Number of desired node-exporter pods",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "DaemonSet",
+    "section": "DaemonSet",
+    "subsection": null,
+    "query": "kube_daemonset_status_desired_number_scheduled{daemonset=\"node-exporter\"}",
+    "metadata": {
+      "user_question": "How many node-exporter pods are scheduled?",
+      "description": "Returns desired pod count for specific node-exporter DaemonSet",
+      "returns": "Number of desired node-exporter pods",
+      "row_index": 29
+    }
+  },
+  {
+    "text": "Question: How many DaemonSets are currently running in monitoring?\nQuery: kube_daemonset_status_current_number_scheduled{namespace=\"monitoring\"}\nDescription: Returns current number of scheduled DaemonSet pods in monitoring namespace\nReturns: DaemonSet status in monitoring system",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "DaemonSet",
+    "section": "DaemonSet",
+    "subsection": null,
+    "query": "kube_daemonset_status_current_number_scheduled{namespace=\"monitoring\"}",
+    "metadata": {
+      "user_question": "How many DaemonSets are currently running in monitoring?",
+      "description": "Returns current number of scheduled DaemonSet pods in monitoring namespace",
+      "returns": "DaemonSet status in monitoring system",
+      "row_index": 30
+    }
+  },
+  {
+    "text": "Question: What is the current revision of PostgreSQL StatefulSet?\nQuery: kube_statefulset_status_current_revision{namespace=\"database\", statefulset=~\".*-postgres\"}\nDescription: Returns current revision of PostgreSQL database StatefulSet\nReturns: Revision identifier for PostgreSQL StatefulSet",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "StatefulSet",
+    "section": "StatefulSet",
+    "subsection": null,
+    "query": "kube_statefulset_status_current_revision{namespace=\"database\", statefulset=~\".*-postgres\"}",
+    "metadata": {
+      "user_question": "What is the current revision of PostgreSQL StatefulSet?",
+      "description": "Returns current revision of PostgreSQL database StatefulSet",
+      "returns": "Revision identifier for PostgreSQL StatefulSet",
+      "row_index": 31
+    }
+  },
+  {
+    "text": "Question: Does the fluentd DaemonSet have misscheduled pods?\nQuery: kube_daemonset_status_number_misscheduled{daemonset=\"fluentd\", namespace=\"logging\"} > 0\nDescription: Detects fluentd DaemonSet pods running on wrong nodes\nReturns: Number of misscheduled fluentd pods",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "DaemonSet",
+    "section": "DaemonSet",
+    "subsection": null,
+    "query": "kube_daemonset_status_number_misscheduled{daemonset=\"fluentd\", namespace=\"logging\"} > 0",
+    "metadata": {
+      "user_question": "Does the fluentd DaemonSet have misscheduled pods?",
+      "description": "Detects fluentd DaemonSet pods running on wrong nodes",
+      "returns": "Number of misscheduled fluentd pods",
+      "row_index": 32
+    }
+  },
+  {
+    "text": "Question: What is the status of production namespaces?\nQuery: kube_namespace_status_phase{namespace=~\"prod.*\"}\nDescription: Returns phase status of namespaces starting with 'prod'\nReturns: Status of production namespaces",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Namespace",
+    "section": "Namespace",
+    "subsection": null,
+    "query": "kube_namespace_status_phase{namespace=~\"prod.*\"}",
+    "metadata": {
+      "user_question": "What is the status of production namespaces?",
+      "description": "Returns phase status of namespaces starting with 'prod'",
+      "returns": "Status of production namespaces",
+      "row_index": 33
+    }
+  },
+  {
+    "text": "Question: How many days old are application namespaces?\nQuery: (time() - kube_namespace_created{namespace!~\"kube-.*\"}) / 86400\nDescription: Calculates age of application namespaces in days\nReturns: Age of namespaces in days excluding system ones",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Namespace",
+    "section": "Namespace",
+    "subsection": null,
+    "query": "(time() - kube_namespace_created{namespace!~\"kube-.*\"}) / 86400",
+    "metadata": {
+      "user_question": "How many days old are application namespaces?",
+      "description": "Calculates age of application namespaces in days",
+      "returns": "Age of namespaces in days excluding system ones",
+      "row_index": 34
+    }
+  },
+  {
+    "text": "Question: Which application namespaces have kubectl annotations?\nQuery: kube_namespace_annotations{annotation_kubectl_kubernetes_io_last_applied_configuration!=\"\", namespace=~\"app-.*\"}\nDescription: Returns application namespaces with specific kubectl annotations\nReturns: Namespaces with kubectl configuration history",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Namespace",
+    "section": "Namespace",
+    "subsection": null,
+    "query": "kube_namespace_annotations{annotation_kubectl_kubernetes_io_last_applied_configuration!=\"\", namespace=~\"app-.*\"}",
+    "metadata": {
+      "user_question": "Which application namespaces have kubectl annotations?",
+      "description": "Returns application namespaces with specific kubectl annotations",
+      "returns": "Namespaces with kubectl configuration history",
+      "row_index": 35
+    }
+  },
+  {
+    "text": "Question: What is the capacity of SSD volumes?\nQuery: kube_persistentvolume_capacity_bytes{persistentvolume=~\"pv-ssd-.*\"}\nDescription: Returns PersistentVolume capacity in bytes for SSD volumes\nReturns: SSD volume capacity in bytes",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Storage",
+    "section": "Storage",
+    "subsection": null,
+    "query": "kube_persistentvolume_capacity_bytes{persistentvolume=~\"pv-ssd-.*\"}",
+    "metadata": {
+      "user_question": "What is the capacity of SSD volumes?",
+      "description": "Returns PersistentVolume capacity in bytes for SSD volumes",
+      "returns": "SSD volume capacity in bytes",
+      "row_index": 36
+    }
+  },
+  {
+    "text": "Question: Which PVCs are related to database?\nQuery: kube_persistentvolumeclaim_status_phase{phase=\"Bound\", namespace=\"database\"}\nDescription: Returns PVCs in Bound state in database namespace\nReturns: PVCs bound to database volumes",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Storage",
+    "section": "Storage",
+    "subsection": null,
+    "query": "kube_persistentvolumeclaim_status_phase{phase=\"Bound\", namespace=\"database\"}",
+    "metadata": {
+      "user_question": "Which PVCs are related to database?",
+      "description": "Returns PVCs in Bound state in database namespace",
+      "returns": "PVCs bound to database volumes",
+      "row_index": 37
+    }
+  },
+  {
+    "text": "Question: Which PVs have ReadWriteOnce access mode and fast-ssd?\nQuery: kube_persistentvolume_info{access_mode=\"ReadWriteOnce\", storageclass=\"fast-ssd\"}\nDescription: Returns PersistentVolume with ReadWriteOnce access mode and fast-ssd storage class\nReturns: Volumes with specific access mode and storage class",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Storage",
+    "section": "Storage",
+    "subsection": null,
+    "query": "kube_persistentvolume_info{access_mode=\"ReadWriteOnce\", storageclass=\"fast-ssd\"}",
+    "metadata": {
+      "user_question": "Which PVs have ReadWriteOnce access mode and fast-ssd?",
+      "description": "Returns PersistentVolume with ReadWriteOnce access mode and fast-ssd storage class",
+      "returns": "Volumes with specific access mode and storage class",
+      "row_index": 38
+    }
+  },
+  {
+    "text": "Question: How many GB of storage do database PVCs request?\nQuery: kube_persistentvolumeclaim_resource_requests_storage_bytes{namespace=\"database\"} / (1024^3)\nDescription: Returns storage requests for PVCs in GB in database namespace\nReturns: Storage requests in gigabytes for databases",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Storage",
+    "section": "Storage",
+    "subsection": null,
+    "query": "kube_persistentvolumeclaim_resource_requests_storage_bytes{namespace=\"database\"} / (1024^3)",
+    "metadata": {
+      "user_question": "How many GB of storage do database PVCs request?",
+      "description": "Returns storage requests for PVCs in GB in database namespace",
+      "returns": "Storage requests in gigabytes for databases",
+      "row_index": 39
+    }
+  },
+  {
+    "text": "Question: Which migration Jobs succeeded?\nQuery: kube_job_status_succeeded{namespace=\"batch\", job_name=~\".*-migration\"}\nDescription: Returns count of successful migration Jobs in batch namespace\nReturns: Number of successful migration Jobs",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Job",
+    "section": "Job",
+    "subsection": null,
+    "query": "kube_job_status_succeeded{namespace=\"batch\", job_name=~\".*-migration\"}",
+    "metadata": {
+      "user_question": "Which migration Jobs succeeded?",
+      "description": "Returns count of successful migration Jobs in batch namespace",
+      "returns": "Number of successful migration Jobs",
+      "row_index": 40
+    }
+  },
+  {
+    "text": "Question: Did the backup Job fail?\nQuery: kube_job_status_failed{job_name=\"data-backup\"} > 0\nDescription: Checks if specific backup Job failed\nReturns: Backup Job failure status",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Job",
+    "section": "Job",
+    "subsection": null,
+    "query": "kube_job_status_failed{job_name=\"data-backup\"} > 0",
+    "metadata": {
+      "user_question": "Did the backup Job fail?",
+      "description": "Checks if specific backup Job failed",
+      "returns": "Backup Job failure status",
+      "row_index": 41
+    }
+  },
+  {
+    "text": "Question: When will daily-backup run?\nQuery: kube_cronjob_next_schedule_time{cronjob=\"daily-backup\", namespace=\"backup\"}\nDescription: Returns next scheduled run time for specific backup CronJob\nReturns: Timestamp of next backup run",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "CronJob",
+    "section": "CronJob",
+    "subsection": null,
+    "query": "kube_cronjob_next_schedule_time{cronjob=\"daily-backup\", namespace=\"backup\"}",
+    "metadata": {
+      "user_question": "When will daily-backup run?",
+      "description": "Returns next scheduled run time for specific backup CronJob",
+      "returns": "Timestamp of next backup run",
+      "row_index": 42
+    }
+  },
+  {
+    "text": "Question: How long do daily ETL Jobs take?\nQuery: kube_job_status_completion_time{namespace=\"etl\", job_name=~\".*-daily$\"} - kube_job_status_start_time{namespace=\"etl\", job_name=~\".*-daily$\"}\nDescription: Calculates execution time for daily ETL Jobs\nReturns: ETL Job duration in seconds",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Job",
+    "section": "Job",
+    "subsection": null,
+    "query": "kube_job_status_completion_time{namespace=\"etl\", job_name=~\".*-daily$\"} - kube_job_status_start_time{namespace=\"etl\", job_name=~\".*-daily$\"}",
+    "metadata": {
+      "user_question": "How long do daily ETL Jobs take?",
+      "description": "Calculates execution time for daily ETL Jobs",
+      "returns": "ETL Job duration in seconds",
+      "row_index": 43
+    }
+  },
+  {
+    "text": "Question: Which backup CronJobs are suspended?\nQuery: kube_cronjob_spec_suspend{cronjob=~\".*-backup$\", namespace=\"backup\"} == 1\nDescription: Detects backup CronJobs that are suspended\nReturns: Suspended backup CronJobs",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "CronJob",
+    "section": "CronJob",
+    "subsection": null,
+    "query": "kube_cronjob_spec_suspend{cronjob=~\".*-backup$\", namespace=\"backup\"} == 1",
+    "metadata": {
+      "user_question": "Which backup CronJobs are suspended?",
+      "description": "Detects backup CronJobs that are suspended",
+      "returns": "Suspended backup CronJobs",
+      "row_index": 44
+    }
+  },
+  {
+    "text": "Question: How many Secrets are in user namespaces?\nQuery: sum by (namespace) (kube_secret_info{namespace!~\"kube-.*\"})\nDescription: Counts Secrets in namespaces excluding system ones\nReturns: Number of Secrets in application namespaces",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Configuration",
+    "section": "Configuration",
+    "subsection": null,
+    "query": "sum by (namespace) (kube_secret_info{namespace!~\"kube-.*\"})",
+    "metadata": {
+      "user_question": "How many Secrets are in user namespaces?",
+      "description": "Counts Secrets in namespaces excluding system ones",
+      "returns": "Number of Secrets in application namespaces",
+      "row_index": 45
+    }
+  },
+  {
+    "text": "Question: How many ConfigMaps are in app-config?\nQuery: sum by (namespace) (kube_configmap_info{namespace=\"app-config\"})\nDescription: Counts ConfigMaps in application configuration namespace\nReturns: Number of ConfigMaps in configuration namespace",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Configuration",
+    "section": "Configuration",
+    "subsection": null,
+    "query": "sum by (namespace) (kube_configmap_info{namespace=\"app-config\"})",
+    "metadata": {
+      "user_question": "How many ConfigMaps are in app-config?",
+      "description": "Counts ConfigMaps in application configuration namespace",
+      "returns": "Number of ConfigMaps in configuration namespace",
+      "row_index": 46
+    }
+  },
+  {
+    "text": "Question: Which TLS Secrets are in production?\nQuery: kube_secret_type{type=\"kubernetes.io/tls\", namespace=~\".*-prod$\"}\nDescription: Returns TLS type Secrets in production namespaces\nReturns: TLS certificates in production environments",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Configuration",
+    "section": "Configuration",
+    "subsection": null,
+    "query": "kube_secret_type{type=\"kubernetes.io/tls\", namespace=~\".*-prod$\"}",
+    "metadata": {
+      "user_question": "Which TLS Secrets are in production?",
+      "description": "Returns TLS type Secrets in production namespaces",
+      "returns": "TLS certificates in production environments",
+      "row_index": 47
+    }
+  },
+  {
+    "text": "Question: Which application ConfigMaps have resource version?\nQuery: kube_configmap_info{configmap=~\".*-config$\", namespace=\"application\"} * on(namespace, configmap) group_left kube_configmap_metadata_resource_version{namespace=\"application\"}\nDescription: Returns ConfigMaps with '-config' suffix along with resource version information\nReturns: Application ConfigMaps with version metadata",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Configuration",
+    "section": "Configuration",
+    "subsection": null,
+    "query": "kube_configmap_info{configmap=~\".*-config$\", namespace=\"application\"} * on(namespace, configmap) group_left kube_configmap_metadata_resource_version{namespace=\"application\"}",
+    "metadata": {
+      "user_question": "Which application ConfigMaps have resource version?",
+      "description": "Returns ConfigMaps with '-config' suffix along with resource version information",
+      "returns": "Application ConfigMaps with version metadata",
+      "row_index": 48
+    }
+  },
+  {
+    "text": "Question: What is the API load from GET and POST requests?\nQuery: sum by(resource, code, verb) (rate(apiserver_request_total{job=\"apiserver\", verb=~\"GET|POST\"}[5m]))\nDescription: Returns rate of GET and POST requests to API server by resource\nReturns: Number of CRUD requests per second",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "API Server",
+    "section": "API Server",
+    "subsection": null,
+    "query": "sum by(resource, code, verb) (rate(apiserver_request_total{job=\"apiserver\", verb=~\"GET|POST\"}[5m]))",
+    "metadata": {
+      "user_question": "What is the API load from GET and POST requests?",
+      "description": "Returns rate of GET and POST requests to API server by resource",
+      "returns": "Number of CRUD requests per second",
+      "row_index": 49
+    }
+  },
+  {
+    "text": "Question: How fast does the API respond to GET requests?\nQuery: histogram_quantile(0.99, sum(rate(apiserver_request_duration_seconds_bucket{job=\"apiserver\", verb=\"GET\"}[5m])) by (verb, le))\nDescription: Returns 99th percentile response time of API server for GET operations\nReturns: Response time for read operations in seconds",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "API Server",
+    "section": "API Server",
+    "subsection": null,
+    "query": "histogram_quantile(0.99, sum(rate(apiserver_request_duration_seconds_bucket{job=\"apiserver\", verb=\"GET\"}[5m])) by (verb, le))",
+    "metadata": {
+      "user_question": "How fast does the API respond to GET requests?",
+      "description": "Returns 99th percentile response time of API server for GET operations",
+      "returns": "Response time for read operations in seconds",
+      "row_index": 50
+    }
+  },
+  {
+    "text": "Question: How many errors do pod operations generate?\nQuery: sum(rate(apiserver_request_total{job=\"apiserver\",code=~\"[45]..\", resource=\"pods\"}[5m]))\nDescription: Number of 4xx and 5xx errors per second for pods resource\nReturns: Errors per second for pod operations",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "API Server",
+    "section": "API Server",
+    "subsection": null,
+    "query": "sum(rate(apiserver_request_total{job=\"apiserver\",code=~\"[45]..\", resource=\"pods\"}[5m]))",
+    "metadata": {
+      "user_question": "How many errors do pod operations generate?",
+      "description": "Number of 4xx and 5xx errors per second for pods resource",
+      "returns": "Errors per second for pod operations",
+      "row_index": 51
+    }
+  },
+  {
+    "text": "Question: How many read-only requests are currently being processed?\nQuery: apiserver_current_inflight_requests{request_kind=\"readOnly\", job=\"apiserver\"}\nDescription: Returns current number of requests being processed for read-only operations\nReturns: Number of concurrent read-only requests",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "API Server",
+    "section": "API Server",
+    "subsection": null,
+    "query": "apiserver_current_inflight_requests{request_kind=\"readOnly\", job=\"apiserver\"}",
+    "metadata": {
+      "user_question": "How many read-only requests are currently being processed?",
+      "description": "Returns current number of requests being processed for read-only operations",
+      "returns": "Number of concurrent read-only requests",
+      "row_index": 52
+    }
+  },
+  {
+    "text": "Question: What is the WATCH connection rate by resource?\nQuery: sum by(group, version, resource) (rate(apiserver_longrunning_gauge{verb=\"WATCH\", job=\"apiserver\"}[5m]))\nDescription: Returns rate of long-running WATCH connections by resource type\nReturns: WATCH connection intensity per resource",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "API Server",
+    "section": "API Server",
+    "subsection": null,
+    "query": "sum by(group, version, resource) (rate(apiserver_longrunning_gauge{verb=\"WATCH\", job=\"apiserver\"}[5m]))",
+    "metadata": {
+      "user_question": "What is the WATCH connection rate by resource?",
+      "description": "Returns rate of long-running WATCH connections by resource type",
+      "returns": "WATCH connection intensity per resource",
+      "row_index": 53
+    }
+  },
+  {
+    "text": "Question: Which containers in production use the most CPU?\nQuery: rate(container_cpu_usage_seconds_total{container!=\"POD\",container!=\"\", namespace=\"production\"}[5m])\nDescription: Returns CPU usage by containers in production namespace\nReturns: CPU usage in production",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Resources",
+    "section": "Resources",
+    "subsection": null,
+    "query": "rate(container_cpu_usage_seconds_total{container!=\"POD\",container!=\"\", namespace=\"production\"}[5m])",
+    "metadata": {
+      "user_question": "Which containers in production use the most CPU?",
+      "description": "Returns CPU usage by containers in production namespace",
+      "returns": "CPU usage in production",
+      "row_index": 54
+    }
+  },
+  {
+    "text": "Question: How much memory do nginx pods use?\nQuery: container_memory_usage_bytes{container!=\"POD\",container!=\"\", pod=~\"nginx-.*\"}\nDescription: Returns memory usage by containers in nginx pods\nReturns: Memory usage by nginx",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Resources",
+    "section": "Resources",
+    "subsection": null,
+    "query": "container_memory_usage_bytes{container!=\"POD\",container!=\"\", pod=~\"nginx-.*\"}",
+    "metadata": {
+      "user_question": "How much memory do nginx pods use?",
+      "description": "Returns memory usage by containers in nginx pods",
+      "returns": "Memory usage by nginx",
+      "row_index": 55
+    }
+  },
+  {
+    "text": "Question: What are the CPU limits in production?\nQuery: kube_pod_container_resource_limits{resource=\"cpu\", namespace=\"production\"}\nDescription: Returns CPU limits for containers in production namespace\nReturns: Configured CPU limits in production",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Resources",
+    "section": "Resources",
+    "subsection": null,
+    "query": "kube_pod_container_resource_limits{resource=\"cpu\", namespace=\"production\"}",
+    "metadata": {
+      "user_question": "What are the CPU limits in production?",
+      "description": "Returns CPU limits for containers in production namespace",
+      "returns": "Configured CPU limits in production",
+      "row_index": 56
+    }
+  },
+  {
+    "text": "Question: What is the network traffic of API pods in production?\nQuery: rate(container_network_receive_bytes_total{namespace=\"production\", pod=~\"api-.*\"}[5m])\nDescription: Returns rate of received network bytes for API pods in production\nReturns: Network throughput of incoming data for API",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Resources",
+    "section": "Resources",
+    "subsection": null,
+    "query": "rate(container_network_receive_bytes_total{namespace=\"production\", pod=~\"api-.*\"}[5m])",
+    "metadata": {
+      "user_question": "What is the network traffic of API pods in production?",
+      "description": "Returns rate of received network bytes for API pods in production",
+      "returns": "Network throughput of incoming data for API",
+      "row_index": 57
+    }
+  },
+  {
+    "text": "Question: What percentage of disk does MySQL use?\nQuery: (container_fs_usage_bytes{container!=\"POD\", mountpoint=\"/var/lib/mysql\", namespace=\"database\"} / container_fs_limit_bytes{container!=\"POD\", mountpoint=\"/var/lib/mysql\", namespace=\"database\"}) * 100\nDescription: Calculates filesystem usage percentage for MySQL in database namespace\nReturns: Disk usage percentage for MySQL databases",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Resources",
+    "section": "Resources",
+    "subsection": null,
+    "query": "(container_fs_usage_bytes{container!=\"POD\", mountpoint=\"/var/lib/mysql\", namespace=\"database\"} / container_fs_limit_bytes{container!=\"POD\", mountpoint=\"/var/lib/mysql\", namespace=\"database\"}) * 100",
+    "metadata": {
+      "user_question": "What percentage of disk does MySQL use?",
+      "description": "Calculates filesystem usage percentage for MySQL in database namespace",
+      "returns": "Disk usage percentage for MySQL databases",
+      "row_index": 58
+    }
+  },
+  {
+    "text": "Question: Which containers in applications have no CPU limits?\nQuery: count by (namespace)(sum by (namespace,pod,container)(kube_pod_container_info{container!=\"\", namespace!~\"kube-.*\"}) unless sum by (namespace,pod,container)(kube_pod_container_resource_limits{resource=\"cpu\", namespace!~\"kube-.*\"}))\nDescription: Counts containers without CPU limits in application namespaces\nReturns: Containers without CPU limits in applications",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Advanced",
+    "section": "Advanced",
+    "subsection": null,
+    "query": "count by (namespace)(sum by (namespace,pod,container)(kube_pod_container_info{container!=\"\", namespace!~\"kube-.*\"}) unless sum by (namespace,pod,container)(kube_pod_container_resource_limits{resource=\"cpu\", namespace!~\"kube-.*\"}))",
+    "metadata": {
+      "user_question": "Which containers in applications have no CPU limits?",
+      "description": "Counts containers without CPU limits in application namespaces",
+      "returns": "Containers without CPU limits in applications",
+      "row_index": 59
+    }
+  },
+  {
+    "text": "Question: What is the CPU overcommit in production?\nQuery: sum(kube_pod_container_resource_limits{resource=\"cpu\", namespace=\"production\"}) - sum(kube_node_status_capacity_cpu_cores)\nDescription: Calculates CPU overcommit in production namespace relative to cluster capacity\nReturns: CPU overcommit in production",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Advanced",
+    "section": "Advanced",
+    "subsection": null,
+    "query": "sum(kube_pod_container_resource_limits{resource=\"cpu\", namespace=\"production\"}) - sum(kube_node_status_capacity_cpu_cores)",
+    "metadata": {
+      "user_question": "What is the CPU overcommit in production?",
+      "description": "Calculates CPU overcommit in production namespace relative to cluster capacity",
+      "returns": "CPU overcommit in production",
+      "row_index": 60
+    }
+  },
+  {
+    "text": "Question: Which containers in production use the most CPU?\nQuery: topk(10, rate(container_cpu_usage_seconds_total{container!=\"POD\",container!=\"\", namespace=\"production\"}[5m]))\nDescription: Top 10 containers with highest CPU usage in production namespace\nReturns: Ranking of containers with highest CPU in production",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Advanced",
+    "section": "Advanced",
+    "subsection": null,
+    "query": "topk(10, rate(container_cpu_usage_seconds_total{container!=\"POD\",container!=\"\", namespace=\"production\"}[5m]))",
+    "metadata": {
+      "user_question": "Which containers in production use the most CPU?",
+      "description": "Top 10 containers with highest CPU usage in production namespace",
+      "returns": "Ranking of containers with highest CPU in production",
+      "row_index": 61
+    }
+  },
+  {
+    "text": "Question: What percentage of memory do containers use in production?\nQuery: (container_memory_usage_bytes{container!=\"POD\", namespace=\"production\"} / kube_pod_container_resource_limits{resource=\"memory\", namespace=\"production\"}) * 100\nDescription: Percentage memory usage relative to limits in production namespace\nReturns: Memory usage percentage in production",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Advanced",
+    "section": "Advanced",
+    "subsection": null,
+    "query": "(container_memory_usage_bytes{container!=\"POD\", namespace=\"production\"} / kube_pod_container_resource_limits{resource=\"memory\", namespace=\"production\"}) * 100",
+    "metadata": {
+      "user_question": "What percentage of memory do containers use in production?",
+      "description": "Percentage memory usage relative to limits in production namespace",
+      "returns": "Memory usage percentage in production",
+      "row_index": 62
+    }
+  },
+  {
+    "text": "Question: Which nodes have the highest pod density?\nQuery: topk(5, count by (node) (kube_pod_info{namespace!~\"kube-.*\"}) / on(node) kube_node_status_capacity_pods)\nDescription: Top 5 nodes with highest pod capacity utilization ratio\nReturns: Nodes with highest pod density relative to maximum capacity",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Advanced",
+    "section": "Advanced",
+    "subsection": null,
+    "query": "topk(5, count by (node) (kube_pod_info{namespace!~\"kube-.*\"}) / on(node) kube_node_status_capacity_pods)",
+    "metadata": {
+      "user_question": "Which nodes have the highest pod density?",
+      "description": "Top 5 nodes with highest pod capacity utilization ratio",
+      "returns": "Nodes with highest pod density relative to maximum capacity",
+      "row_index": 63
+    }
+  },
+  {
+    "text": "Question: What is the memory overcommit in applications?\nQuery: sum(kube_pod_container_resource_limits{resource=\"memory\", namespace!~\"kube-.*\"}) - sum(kube_node_status_capacity_memory_bytes)\nDescription: Calculates memory overcommit for application namespaces relative to cluster capacity\nReturns: Difference between memory limits in application namespaces and cluster capacity",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Advanced",
+    "section": "Advanced",
+    "subsection": null,
+    "query": "sum(kube_pod_container_resource_limits{resource=\"memory\", namespace!~\"kube-.*\"}) - sum(kube_node_status_capacity_memory_bytes)",
+    "metadata": {
+      "user_question": "What is the memory overcommit in applications?",
+      "description": "Calculates memory overcommit for application namespaces relative to cluster capacity",
+      "returns": "Difference between memory limits in application namespaces and cluster capacity",
+      "row_index": 64
+    }
+  },
+  {
+    "text": "Question: What is the average resource efficiency ratio in applications?\nQuery: avg by (namespace) ((container_memory_usage_bytes{container!=\"POD\", namespace!~\"kube-.*\"} / kube_pod_container_resource_requests{resource=\"memory\", namespace!~\"kube-.*\"}) + (rate(container_cpu_usage_seconds_total{container!=\"POD\", namespace!~\"kube-.*\"}[5m]) / kube_pod_container_resource_requests{resource=\"cpu\", namespace!~\"kube-.*\"})) / 2\nDescription: Calculates average resource efficiency ratio (CPU and memory) relative to requests in application namespaces\nReturns: Average resource efficiency ratio per namespace",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Advanced",
+    "section": "Advanced",
+    "subsection": null,
+    "query": "avg by (namespace) ((container_memory_usage_bytes{container!=\"POD\", namespace!~\"kube-.*\"} / kube_pod_container_resource_requests{resource=\"memory\", namespace!~\"kube-.*\"}) + (rate(container_cpu_usage_seconds_total{container!=\"POD\", namespace!~\"kube-.*\"}[5m]) / kube_pod_container_resource_requests{resource=\"cpu\", namespace!~\"kube-.*\"})) / 2",
+    "metadata": {
+      "user_question": "What is the average resource efficiency ratio in applications?",
+      "description": "Calculates average resource efficiency ratio (CPU and memory) relative to requests in application namespaces",
+      "returns": "Average resource efficiency ratio per namespace",
+      "row_index": 65
+    }
+  },
+  {
+    "text": "Question: Which application pods are in Terminating state?\nQuery: count(kube_pod_deletion_timestamp{namespace!~\"kube-.*\"}) by (namespace, pod) * count(kube_pod_status_reason{reason=\"NodeLost\", namespace!~\"kube-.*\"} == 0) by (namespace, pod) > 0\nDescription: Detects pods in Terminating state in application namespaces\nReturns: Pods stuck in Terminating in applications",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Alert",
+    "section": "Alert",
+    "subsection": null,
+    "query": "count(kube_pod_deletion_timestamp{namespace!~\"kube-.*\"}) by (namespace, pod) * count(kube_pod_status_reason{reason=\"NodeLost\", namespace!~\"kube-.*\"} == 0) by (namespace, pod) > 0",
+    "metadata": {
+      "user_question": "Which application pods are in Terminating state?",
+      "description": "Detects pods in Terminating state in application namespaces",
+      "returns": "Pods stuck in Terminating in applications",
+      "row_index": 66
+    }
+  },
+  {
+    "text": "Question: Which pods in production are in Unknown state?\nQuery: sum(kube_pod_status_phase{phase=\"Unknown\", namespace=\"production\"}) by (namespace, pod) or (count(kube_pod_deletion_timestamp{namespace=\"production\"}) by (namespace, pod) * sum(kube_pod_status_reason{reason=\"NodeLost\", namespace=\"production\"}) by(namespace, pod))\nDescription: Detects pods in Unknown state in production namespace\nReturns: Pods in Unknown state in production",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Alert",
+    "section": "Alert",
+    "subsection": null,
+    "query": "sum(kube_pod_status_phase{phase=\"Unknown\", namespace=\"production\"}) by (namespace, pod) or (count(kube_pod_deletion_timestamp{namespace=\"production\"}) by (namespace, pod) * sum(kube_pod_status_reason{reason=\"NodeLost\", namespace=\"production\"}) by(namespace, pod))",
+    "metadata": {
+      "user_question": "Which pods in production are in Unknown state?",
+      "description": "Detects pods in Unknown state in production namespace",
+      "returns": "Pods in Unknown state in production",
+      "row_index": 67
+    }
+  },
+  {
+    "text": "Question: Which applications in production restart frequently?\nQuery: increase(kube_pod_container_status_restarts_total{namespace=\"production\", container=~\"app.*\"}[1h]) > 5\nDescription: Application containers with more than 5 restarts in an hour in production\nReturns: Unstable applications in production",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Alert",
+    "section": "Alert",
+    "subsection": null,
+    "query": "increase(kube_pod_container_status_restarts_total{namespace=\"production\", container=~\"app.*\"}[1h]) > 5",
+    "metadata": {
+      "user_question": "Which applications in production restart frequently?",
+      "description": "Application containers with more than 5 restarts in an hour in production",
+      "returns": "Unstable applications in production",
+      "row_index": 68
+    }
+  },
+  {
+    "text": "Question: Which deployments in production have availability problems?\nQuery: (kube_deployment_spec_replicas{namespace=\"production\"} - kube_deployment_status_replicas_available{namespace=\"production\"}) / kube_deployment_spec_replicas{namespace=\"production\"} * 100 > 20\nDescription: Deployments in production with more than 20% missing replicas\nReturns: Critical availability problems in production",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Alert",
+    "section": "Alert",
+    "subsection": null,
+    "query": "(kube_deployment_spec_replicas{namespace=\"production\"} - kube_deployment_status_replicas_available{namespace=\"production\"}) / kube_deployment_spec_replicas{namespace=\"production\"} * 100 > 20",
+    "metadata": {
+      "user_question": "Which deployments in production have availability problems?",
+      "description": "Deployments in production with more than 20% missing replicas",
+      "returns": "Critical availability problems in production",
+      "row_index": 69
+    }
+  },
+  {
+    "text": "Question: Which containers in production use over 90% memory?\nQuery: (container_memory_usage_bytes{container!=\"POD\", namespace=\"production\"} / kube_pod_container_resource_limits{resource=\"memory\", namespace=\"production\"}) * 100 > 90\nDescription: Containers in production using more than 90% of memory limit\nReturns: Containers near memory exhaustion in production",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Alert",
+    "section": "Alert",
+    "subsection": null,
+    "query": "(container_memory_usage_bytes{container!=\"POD\", namespace=\"production\"} / kube_pod_container_resource_limits{resource=\"memory\", namespace=\"production\"}) * 100 > 90",
+    "metadata": {
+      "user_question": "Which containers in production use over 90% memory?",
+      "description": "Containers in production using more than 90% of memory limit",
+      "returns": "Containers near memory exhaustion in production",
+      "row_index": 70
+    }
+  },
+  {
+    "text": "Question: Which application volumes are filled over 85%?\nQuery: (kubelet_volume_stats_used_bytes{namespace!~\"kube-.*\"} / kubelet_volume_stats_capacity_bytes{namespace!~\"kube-.*\"}) * 100 > 85\nDescription: Persistent Volumes in application namespaces used more than 85%\nReturns: Volumes near capacity in applications",
+    "source": "csv",
+    "chunk_type": "direct_query",
+    "category": "Alert",
+    "section": "Alert",
+    "subsection": null,
+    "query": "(kubelet_volume_stats_used_bytes{namespace!~\"kube-.*\"} / kubelet_volume_stats_capacity_bytes{namespace!~\"kube-.*\"}) * 100 > 85",
+    "metadata": {
+      "user_question": "Which application volumes are filled over 85%?",
+      "description": "Persistent Volumes in application namespaces used more than 85%",
+      "returns": "Volumes near capacity in applications",
+      "row_index": 71
+    }
+  },
+  {
+    "text": "1. Number of pods in namespace\nQuery: sum by (namespace) (kube_pod_info)\nDescription: Counts the total number of pods in each namespace\nUse Case: Monitoring the number of pods per namespace",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Pod",
+    "section": "Pod Metrics",
+    "subsection": "1. Number of pods in namespace",
+    "query": "sum by (namespace) (kube_pod_info)",
+    "metadata": {
+      "description": "Counts the total number of pods in each namespace",
+      "use_case": "Monitoring the number of pods per namespace",
+      "title": "1. Number of pods in namespace"
+    }
+  },
+  {
+    "text": "2. Pods in specific state\nQuery: kube_pod_status_phase{phase=\"Running\", namespace=\"default\"}\nDescription: Returns pods in Running state in default namespace\nUse Case: Checking pod status in specific namespace",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Pod",
+    "section": "Pod Metrics",
+    "subsection": "2. Pods in specific state",
+    "query": "kube_pod_status_phase{phase=\"Running\", namespace=\"default\"}",
+    "metadata": {
+      "description": "Returns pods in Running state in default namespace",
+      "use_case": "Checking pod status in specific namespace",
+      "title": "2. Pods in specific state"
+    }
+  },
+  {
+    "text": "3. Pods in Failed state\nQuery: sum(kube_pod_status_phase{phase=\"Failed\"})\nDescription: Counts the total number of pods in Failed state\nUse Case: Alerts about pod failures",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Pod",
+    "section": "Pod Metrics",
+    "subsection": "3. Pods in Failed state",
+    "query": "sum(kube_pod_status_phase{phase=\"Failed\"})",
+    "metadata": {
+      "description": "Counts the total number of pods in Failed state",
+      "use_case": "Alerts about pod failures",
+      "title": "3. Pods in Failed state"
+    }
+  },
+  {
+    "text": "4. Unready pods\nQuery: sum by (namespace) (kube_pod_status_ready{condition=\"false\"})\nDescription: Counts pods that are not ready in each namespace\nUse Case: Identifying pod readiness issues",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Pod",
+    "section": "Pod Metrics",
+    "subsection": "4. Unready pods",
+    "query": "sum by (namespace) (kube_pod_status_ready{condition=\"false\"})",
+    "metadata": {
+      "description": "Counts pods that are not ready in each namespace",
+      "use_case": "Identifying pod readiness issues",
+      "title": "4. Unready pods"
+    }
+  },
+  {
+    "text": "5. Pod restarts\nQuery: sum by (namespace)(changes(kube_pod_status_ready{condition=\"true\"}[5m]))\nDescription: Monitors pod restarts in the last 5 minutes\nUse Case: Detecting CrashLoopBackOff issues",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Pod",
+    "section": "Pod Metrics",
+    "subsection": "5. Pod restarts",
+    "query": "sum by (namespace)(changes(kube_pod_status_ready{condition=\"true\"}[5m]))",
+    "metadata": {
+      "description": "Monitors pod restarts in the last 5 minutes",
+      "use_case": "Detecting CrashLoopBackOff issues",
+      "title": "5. Pod restarts"
+    }
+  },
+  {
+    "text": "6. Container info in pods\nQuery: kube_pod_container_info{namespace=\"production\", pod=~\"nginx-.*\"}\nDescription: Returns detailed information about containers in a specific namespace, filtered by pod name\nUse Case: Inventory of containers in specific namespace or for particular pods",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Pod",
+    "section": "Pod Metrics",
+    "subsection": "6. Container info in pods",
+    "query": "kube_pod_container_info{namespace=\"production\", pod=~\"nginx-.*\"}",
+    "metadata": {
+      "description": "Returns detailed information about containers in a specific namespace, filtered by pod name",
+      "use_case": "Inventory of containers in specific namespace or for particular pods",
+      "title": "6. Container info in pods"
+    }
+  },
+  {
+    "text": "7. Container restarts\nQuery: kube_pod_container_status_restarts_total{namespace=\"default\", container=\"app\"}\nDescription: Returns the number of restarts for a specific container in a particular namespace\nUse Case: Monitoring stability of specific containers or applications",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Pod",
+    "section": "Pod Metrics",
+    "subsection": "7. Container restarts",
+    "query": "kube_pod_container_status_restarts_total{namespace=\"default\", container=\"app\"}",
+    "metadata": {
+      "description": "Returns the number of restarts for a specific container in a particular namespace",
+      "use_case": "Monitoring stability of specific containers or applications",
+      "title": "7. Container restarts"
+    }
+  },
+  {
+    "text": "8. Containers with high restarts\nQuery: topk(5, kube_pod_container_status_restarts_total{namespace=~\"prod.*\"}) > 10\nDescription: Returns top 5 containers with the highest number of restarts in namespaces starting with 'prod' that have more than 10 restarts\nUse Case: Identifying problematic containers in production environment",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Pod",
+    "section": "Pod Metrics",
+    "subsection": "8. Containers with high restarts",
+    "query": "topk(5, kube_pod_container_status_restarts_total{namespace=~\"prod.*\"}) > 10",
+    "metadata": {
+      "description": "Returns top 5 containers with the highest number of restarts in namespaces starting with 'prod' that have more than 10 restarts",
+      "use_case": "Identifying problematic containers in production environment",
+      "title": "8. Containers with high restarts"
+    }
+  },
+  {
+    "text": "9. Pods per node\nQuery: count by (node) (kube_pod_info{namespace!~\"kube-.*\"})\nDescription: Counts the number of application pods on each node, excluding system pods\nUse Case: Analysis of pod distribution and node load balancing",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Pod",
+    "section": "Pod Metrics",
+    "subsection": "9. Pods per node",
+    "query": "count by (node) (kube_pod_info{namespace!~\"kube-.*\"})",
+    "metadata": {
+      "description": "Counts the number of application pods on each node, excluding system pods",
+      "use_case": "Analysis of pod distribution and node load balancing",
+      "title": "9. Pods per node"
+    }
+  },
+  {
+    "text": "10. Pods pending scheduling\nQuery: sum by (namespace) (kube_pod_status_phase{phase=\"Pending\"} * on(namespace, pod) kube_pod_status_scheduled{condition=\"false\"})\nDescription: Returns pods in Pending state that have not yet been scheduled on nodes\nUse Case: Detecting pod scheduling issues due to resource shortage or constraints",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Pod",
+    "section": "Pod Metrics",
+    "subsection": "10. Pods pending scheduling",
+    "query": "sum by (namespace) (kube_pod_status_phase{phase=\"Pending\"} * on(namespace, pod) kube_pod_status_scheduled{condition=\"false\"})",
+    "metadata": {
+      "description": "Returns pods in Pending state that have not yet been scheduled on nodes",
+      "use_case": "Detecting pod scheduling issues due to resource shortage or constraints",
+      "title": "10. Pods pending scheduling"
+    }
+  },
+  {
+    "text": "1. Desired replicas\nQuery: kube_deployment_spec_replicas{namespace=\"production\"}\nDescription: Returns the desired number of replicas for deployments in a specific namespace\nUse Case: Checking scaling configuration in specific environment",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Deployment",
+    "section": "Deployment Metrics",
+    "subsection": "1. Desired replicas",
+    "query": "kube_deployment_spec_replicas{namespace=\"production\"}",
+    "metadata": {
+      "description": "Returns the desired number of replicas for deployments in a specific namespace",
+      "use_case": "Checking scaling configuration in specific environment",
+      "title": "1. Desired replicas"
+    }
+  },
+  {
+    "text": "2. Available replicas\nQuery: kube_deployment_status_replicas_available{deployment=\"nginx-deployment\"}\nDescription: Returns the number of available replicas for a specific deployment\nUse Case: Monitoring availability of specific application",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Deployment",
+    "section": "Deployment Metrics",
+    "subsection": "2. Available replicas",
+    "query": "kube_deployment_status_replicas_available{deployment=\"nginx-deployment\"}",
+    "metadata": {
+      "description": "Returns the number of available replicas for a specific deployment",
+      "use_case": "Monitoring availability of specific application",
+      "title": "2. Available replicas"
+    }
+  },
+  {
+    "text": "3. Deployment issues\nQuery: (kube_deployment_spec_replicas{namespace=\"production\"} - kube_deployment_status_replicas_available{namespace=\"production\"}) > 0\nDescription: Detects deployments in production namespace with insufficient available replicas\nUse Case: Alerting about deployment issues in production environment",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Deployment",
+    "section": "Deployment Metrics",
+    "subsection": "3. Deployment issues",
+    "query": "(kube_deployment_spec_replicas{namespace=\"production\"} - kube_deployment_status_replicas_available{namespace=\"production\"}) > 0",
+    "metadata": {
+      "description": "Detects deployments in production namespace with insufficient available replicas",
+      "use_case": "Alerting about deployment issues in production environment",
+      "title": "3. Deployment issues"
+    }
+  },
+  {
+    "text": "4. Updated replicas\nQuery: kube_deployment_status_replicas_updated{namespace!=\"kube-system\"}\nDescription: Number of replicas being updated, excluding kube-system namespace\nUse Case: Monitoring rolling update process in application namespaces",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Deployment",
+    "section": "Deployment Metrics",
+    "subsection": "4. Updated replicas",
+    "query": "kube_deployment_status_replicas_updated{namespace!=\"kube-system\"}",
+    "metadata": {
+      "description": "Number of replicas being updated, excluding kube-system namespace",
+      "use_case": "Monitoring rolling update process in application namespaces",
+      "title": "4. Updated replicas"
+    }
+  },
+  {
+    "text": "5. Deployment rollout status\nQuery: kube_deployment_status_observed_generation{namespace=\"production\"} != kube_deployment_metadata_generation{namespace=\"production\"}\nDescription: Detects deployments during rollout (when observed generation differs from metadata generation)\nUse Case: Monitoring deployment status and rollouts in production environment",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Deployment",
+    "section": "Deployment Metrics",
+    "subsection": "5. Deployment rollout status",
+    "query": "kube_deployment_status_observed_generation{namespace=\"production\"} != kube_deployment_metadata_generation{namespace=\"production\"}",
+    "metadata": {
+      "description": "Detects deployments during rollout (when observed generation differs from metadata generation)",
+      "use_case": "Monitoring deployment status and rollouts in production environment",
+      "title": "5. Deployment rollout status"
+    }
+  },
+  {
+    "text": "6. Deployment max unavailable\nQuery: kube_deployment_spec_strategy_rollingupdate_max_unavailable{deployment=~\".*-api$\", namespace=\"production\"}\nDescription: Returns maximum number of unavailable replicas during rolling update for API deployments\nUse Case: Checking update strategy for critical API services",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Deployment",
+    "section": "Deployment Metrics",
+    "subsection": "6. Deployment max unavailable",
+    "query": "kube_deployment_spec_strategy_rollingupdate_max_unavailable{deployment=~\".*-api$\", namespace=\"production\"}",
+    "metadata": {
+      "description": "Returns maximum number of unavailable replicas during rolling update for API deployments",
+      "use_case": "Checking update strategy for critical API services",
+      "title": "6. Deployment max unavailable"
+    }
+  },
+  {
+    "text": "1. Ready nodes\nQuery: sum(kube_node_status_condition{condition=\"Ready\", status=\"true\"})\nDescription: Counts the number of ready nodes in the cluster\nUse Case: Monitoring infrastructure availability",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Node",
+    "section": "Node Metrics",
+    "subsection": "1. Ready nodes",
+    "query": "sum(kube_node_status_condition{condition=\"Ready\", status=\"true\"})",
+    "metadata": {
+      "description": "Counts the number of ready nodes in the cluster",
+      "use_case": "Monitoring infrastructure availability",
+      "title": "1. Ready nodes"
+    }
+  },
+  {
+    "text": "2. Unstable nodes\nQuery: sum(changes(kube_node_status_condition{status=\"true\",condition=\"Ready\"}[15m])) by (node) > 2\nDescription: Detects nodes with unstable ready state\nUse Case: Identifying unstable nodes",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Node",
+    "section": "Node Metrics",
+    "subsection": "2. Unstable nodes",
+    "query": "sum(changes(kube_node_status_condition{status=\"true\",condition=\"Ready\"}[15m])) by (node) > 2",
+    "metadata": {
+      "description": "Detects nodes with unstable ready state",
+      "use_case": "Identifying unstable nodes",
+      "title": "2. Unstable nodes"
+    }
+  },
+  {
+    "text": "3. Node information\nQuery: kube_node_info{node=~\"worker-.*\"}\nDescription: Returns detailed information about worker nodes (filtered by name)\nUse Case: Inventory of worker nodes and checking component versions",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Node",
+    "section": "Node Metrics",
+    "subsection": "3. Node information",
+    "query": "kube_node_info{node=~\"worker-.*\"}",
+    "metadata": {
+      "description": "Returns detailed information about worker nodes (filtered by name)",
+      "use_case": "Inventory of worker nodes and checking component versions",
+      "title": "3. Node information"
+    }
+  },
+  {
+    "text": "4. Node CPU capacity\nQuery: kube_node_status_capacity_cpu_cores{node=\"worker-1\"}\nDescription: Returns CPU capacity of a specific node\nUse Case: Resource planning for specific node",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Node",
+    "section": "Node Metrics",
+    "subsection": "4. Node CPU capacity",
+    "query": "kube_node_status_capacity_cpu_cores{node=\"worker-1\"}",
+    "metadata": {
+      "description": "Returns CPU capacity of a specific node",
+      "use_case": "Resource planning for specific node",
+      "title": "4. Node CPU capacity"
+    }
+  },
+  {
+    "text": "5. Nodes with taints\nQuery: kube_node_spec_taint{effect=\"NoSchedule\", key=~\".*gpu.*\"}\nDescription: Returns nodes with NoSchedule taints related to GPU\nUse Case: Identifying nodes dedicated for special workloads (GPU, storage)",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Node",
+    "section": "Node Metrics",
+    "subsection": "5. Nodes with taints",
+    "query": "kube_node_spec_taint{effect=\"NoSchedule\", key=~\".*gpu.*\"}",
+    "metadata": {
+      "description": "Returns nodes with NoSchedule taints related to GPU",
+      "use_case": "Identifying nodes dedicated for special workloads (GPU, storage)",
+      "title": "5. Nodes with taints"
+    }
+  },
+  {
+    "text": "6. Node memory reserved\nQuery: (kube_node_status_capacity_memory_bytes{node=~\"worker-.*\"} - kube_node_status_allocatable_memory_bytes{node=~\"worker-.*\"}) / kube_node_status_capacity_memory_bytes{node=~\"worker-.*\"} * 100\nDescription: Calculates the percentage of memory reserved by system on worker nodes\nUse Case: System overhead analysis and node capacity planning",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Node",
+    "section": "Node Metrics",
+    "subsection": "6. Node memory reserved",
+    "query": "(kube_node_status_capacity_memory_bytes{node=~\"worker-.*\"} - kube_node_status_allocatable_memory_bytes{node=~\"worker-.*\"}) / kube_node_status_capacity_memory_bytes{node=~\"worker-.*\"} * 100",
+    "metadata": {
+      "description": "Calculates the percentage of memory reserved by system on worker nodes",
+      "use_case": "System overhead analysis and node capacity planning",
+      "title": "6. Node memory reserved"
+    }
+  },
+  {
+    "text": "1. Service information\nQuery: kube_service_info{namespace=\"default\", service=~\".*-service\"}\nDescription: Returns information about services in default namespace with names ending in '-service'\nUse Case: Inventory of services in specific namespace by name pattern",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Service",
+    "section": "Service and Endpoint Metrics",
+    "subsection": "1. Service information",
+    "query": "kube_service_info{namespace=\"default\", service=~\".*-service\"}",
+    "metadata": {
+      "description": "Returns information about services in default namespace with names ending in '-service'",
+      "use_case": "Inventory of services in specific namespace by name pattern",
+      "title": "1. Service information"
+    }
+  },
+  {
+    "text": "2. Number of services per namespace\nQuery: sum by (namespace) (kube_service_info{namespace!=\"kube-system\"})\nDescription: Counts the number of services in each namespace, excluding kube-system\nUse Case: Monitoring number of services in user namespaces",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Service",
+    "section": "Service and Endpoint Metrics",
+    "subsection": "2. Number of services per namespace",
+    "query": "sum by (namespace) (kube_service_info{namespace!=\"kube-system\"})",
+    "metadata": {
+      "description": "Counts the number of services in each namespace, excluding kube-system",
+      "use_case": "Monitoring number of services in user namespaces",
+      "title": "2. Number of services per namespace"
+    }
+  },
+  {
+    "text": "3. Endpoints\nQuery: kube_endpoint_info{namespace=\"production\"}\nDescription: Returns information about endpoints in production namespace\nUse Case: Monitoring service connectivity in production",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Service",
+    "section": "Service and Endpoint Metrics",
+    "subsection": "3. Endpoints",
+    "query": "kube_endpoint_info{namespace=\"production\"}",
+    "metadata": {
+      "description": "Returns information about endpoints in production namespace",
+      "use_case": "Monitoring service connectivity in production",
+      "title": "3. Endpoints"
+    }
+  },
+  {
+    "text": "4. LoadBalancer services\nQuery: kube_service_spec_type{type=\"LoadBalancer\", namespace=~\"prod.*\"}\nDescription: Returns LoadBalancer type services in production namespaces\nUse Case: Inventory of services with external access in production",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Service",
+    "section": "Service and Endpoint Metrics",
+    "subsection": "4. LoadBalancer services",
+    "query": "kube_service_spec_type{type=\"LoadBalancer\", namespace=~\"prod.*\"}",
+    "metadata": {
+      "description": "Returns LoadBalancer type services in production namespaces",
+      "use_case": "Inventory of services with external access in production",
+      "title": "4. LoadBalancer services"
+    }
+  },
+  {
+    "text": "5. Endpoints without ready addresses\nQuery: kube_endpoint_address_available{namespace=\"production\"} == 0\nDescription: Detects endpoints without available addresses in production namespace\nUse Case: Alerting about services without available instances in production environment",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Service",
+    "section": "Service and Endpoint Metrics",
+    "subsection": "5. Endpoints without ready addresses",
+    "query": "kube_endpoint_address_available{namespace=\"production\"} == 0",
+    "metadata": {
+      "description": "Detects endpoints without available addresses in production namespace",
+      "use_case": "Alerting about services without available instances in production environment",
+      "title": "5. Endpoints without ready addresses"
+    }
+  },
+  {
+    "text": "1. StatefulSet - desired replicas\nQuery: kube_statefulset_replicas{namespace=\"database\", statefulset=~\".*-db\"}\nDescription: Returns the desired number of replicas for StatefulSet in database namespace with names ending in '-db'\nUse Case: Monitoring database StatefulSet scaling",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "StatefulSet",
+    "section": "StatefulSet and DaemonSet Metrics",
+    "subsection": "1. StatefulSet - desired replicas",
+    "query": "kube_statefulset_replicas{namespace=\"database\", statefulset=~\".*-db\"}",
+    "metadata": {
+      "description": "Returns the desired number of replicas for StatefulSet in database namespace with names ending in '-db'",
+      "use_case": "Monitoring database StatefulSet scaling",
+      "title": "1. StatefulSet - desired replicas"
+    }
+  },
+  {
+    "text": "2. StatefulSet - ready replicas\nQuery: kube_statefulset_status_replicas_ready{statefulset=\"mongodb-cluster\"}\nDescription: Returns the number of ready replicas for specific MongoDB StatefulSet\nUse Case: Checking availability of specific database cluster",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "StatefulSet",
+    "section": "StatefulSet and DaemonSet Metrics",
+    "subsection": "2. StatefulSet - ready replicas",
+    "query": "kube_statefulset_status_replicas_ready{statefulset=\"mongodb-cluster\"}",
+    "metadata": {
+      "description": "Returns the number of ready replicas for specific MongoDB StatefulSet",
+      "use_case": "Checking availability of specific database cluster",
+      "title": "2. StatefulSet - ready replicas"
+    }
+  },
+  {
+    "text": "3. DaemonSet - desired pods\nQuery: kube_daemonset_status_desired_number_scheduled{daemonset=\"node-exporter\"}\nDescription: Returns the desired number of pods for specific node-exporter DaemonSet\nUse Case: Monitoring DaemonSet of monitoring system",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "StatefulSet",
+    "section": "StatefulSet and DaemonSet Metrics",
+    "subsection": "3. DaemonSet - desired pods",
+    "query": "kube_daemonset_status_desired_number_scheduled{daemonset=\"node-exporter\"}",
+    "metadata": {
+      "description": "Returns the desired number of pods for specific node-exporter DaemonSet",
+      "use_case": "Monitoring DaemonSet of monitoring system",
+      "title": "3. DaemonSet - desired pods"
+    }
+  },
+  {
+    "text": "4. DaemonSet - current pods\nQuery: kube_daemonset_status_current_number_scheduled{namespace=\"monitoring\"}\nDescription: Returns the current number of scheduled DaemonSet pods in monitoring namespace\nUse Case: Checking DaemonSet status in monitoring system",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "StatefulSet",
+    "section": "StatefulSet and DaemonSet Metrics",
+    "subsection": "4. DaemonSet - current pods",
+    "query": "kube_daemonset_status_current_number_scheduled{namespace=\"monitoring\"}",
+    "metadata": {
+      "description": "Returns the current number of scheduled DaemonSet pods in monitoring namespace",
+      "use_case": "Checking DaemonSet status in monitoring system",
+      "title": "4. DaemonSet - current pods"
+    }
+  },
+  {
+    "text": "5. StatefulSet revision\nQuery: kube_statefulset_status_current_revision{namespace=\"database\", statefulset=~\".*-postgres\"}\nDescription: Returns current StatefulSet revision for PostgreSQL databases\nUse Case: Monitoring versions and updates of PostgreSQL databases",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "StatefulSet",
+    "section": "StatefulSet and DaemonSet Metrics",
+    "subsection": "5. StatefulSet revision",
+    "query": "kube_statefulset_status_current_revision{namespace=\"database\", statefulset=~\".*-postgres\"}",
+    "metadata": {
+      "description": "Returns current StatefulSet revision for PostgreSQL databases",
+      "use_case": "Monitoring versions and updates of PostgreSQL databases",
+      "title": "5. StatefulSet revision"
+    }
+  },
+  {
+    "text": "6. DaemonSet misscheduled\nQuery: kube_daemonset_status_number_misscheduled{daemonset=\"fluentd\", namespace=\"logging\"} > 0\nDescription: Detects fluentd DaemonSet pods running on incorrect nodes\nUse Case: Identifying logging DaemonSet scheduling issues",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "StatefulSet",
+    "section": "StatefulSet and DaemonSet Metrics",
+    "subsection": "6. DaemonSet misscheduled",
+    "query": "kube_daemonset_status_number_misscheduled{daemonset=\"fluentd\", namespace=\"logging\"} > 0",
+    "metadata": {
+      "description": "Detects fluentd DaemonSet pods running on incorrect nodes",
+      "use_case": "Identifying logging DaemonSet scheduling issues",
+      "title": "6. DaemonSet misscheduled"
+    }
+  },
+  {
+    "text": "1. Namespace status\nQuery: kube_namespace_status_phase{namespace=~\"prod.*\"}\nDescription: Returns phase status of namespaces starting with 'prod'\nUse Case: Monitoring production namespace lifecycle",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Namespace",
+    "section": "Namespace Metrics",
+    "subsection": "1. Namespace status",
+    "query": "kube_namespace_status_phase{namespace=~\"prod.*\"}",
+    "metadata": {
+      "description": "Returns phase status of namespaces starting with 'prod'",
+      "use_case": "Monitoring production namespace lifecycle",
+      "title": "1. Namespace status"
+    }
+  },
+  {
+    "text": "2. Namespace creation age\nQuery: (time() - kube_namespace_created{namespace!~\"kube-.*\"}) / 86400\nDescription: Calculates age of application namespaces in days\nUse Case: Environment age analysis and cleanup of old namespaces",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Namespace",
+    "section": "Namespace Metrics",
+    "subsection": "2. Namespace creation age",
+    "query": "(time() - kube_namespace_created{namespace!~\"kube-.*\"}) / 86400",
+    "metadata": {
+      "description": "Calculates age of application namespaces in days",
+      "use_case": "Environment age analysis and cleanup of old namespaces",
+      "title": "2. Namespace creation age"
+    }
+  },
+  {
+    "text": "3. Namespaces with annotations\nQuery: kube_namespace_annotations{annotation_kubectl_kubernetes_io_last_applied_configuration!=\"\", namespace=~\"app-.*\"}\nDescription: Returns application namespaces with specific kubectl annotations\nUse Case: Identifying namespaces managed by kubectl apply",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Namespace",
+    "section": "Namespace Metrics",
+    "subsection": "3. Namespaces with annotations",
+    "query": "kube_namespace_annotations{annotation_kubectl_kubernetes_io_last_applied_configuration!=\"\", namespace=~\"app-.*\"}",
+    "metadata": {
+      "description": "Returns application namespaces with specific kubectl annotations",
+      "use_case": "Identifying namespaces managed by kubectl apply",
+      "title": "3. Namespaces with annotations"
+    }
+  },
+  {
+    "text": "1. PersistentVolume capacity\nQuery: kube_persistentvolume_capacity_bytes{persistentvolume=~\"pv-ssd-.*\"}\nDescription: Returns PersistentVolume capacity in bytes for SSD volumes\nUse Case: Monitoring fast storage utilization",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Storage",
+    "section": "Storage Metrics",
+    "subsection": "1. PersistentVolume capacity",
+    "query": "kube_persistentvolume_capacity_bytes{persistentvolume=~\"pv-ssd-.*\"}",
+    "metadata": {
+      "description": "Returns PersistentVolume capacity in bytes for SSD volumes",
+      "use_case": "Monitoring fast storage utilization",
+      "title": "1. PersistentVolume capacity"
+    }
+  },
+  {
+    "text": "2. PersistentVolumeClaim status\nQuery: kube_persistentvolumeclaim_status_phase{phase=\"Bound\", namespace=\"database\"}\nDescription: Returns PVC in Bound state in database namespace\nUse Case: Checking volume assignment for databases",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Storage",
+    "section": "Storage Metrics",
+    "subsection": "2. PersistentVolumeClaim status",
+    "query": "kube_persistentvolumeclaim_status_phase{phase=\"Bound\", namespace=\"database\"}",
+    "metadata": {
+      "description": "Returns PVC in Bound state in database namespace",
+      "use_case": "Checking volume assignment for databases",
+      "title": "2. PersistentVolumeClaim status"
+    }
+  },
+  {
+    "text": "3. PV by access mode\nQuery: kube_persistentvolume_info{access_mode=\"ReadWriteOnce\", storageclass=\"fast-ssd\"}\nDescription: Returns PersistentVolume with ReadWriteOnce access mode and fast-ssd storage class\nUse Case: Volume inventory by access type and performance",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Storage",
+    "section": "Storage Metrics",
+    "subsection": "3. PV by access mode",
+    "query": "kube_persistentvolume_info{access_mode=\"ReadWriteOnce\", storageclass=\"fast-ssd\"}",
+    "metadata": {
+      "description": "Returns PersistentVolume with ReadWriteOnce access mode and fast-ssd storage class",
+      "use_case": "Volume inventory by access type and performance",
+      "title": "3. PV by access mode"
+    }
+  },
+  {
+    "text": "4. PVC requests vs limits\nQuery: kube_persistentvolumeclaim_resource_requests_storage_bytes{namespace=\"database\"} / (1024^3)\nDescription: Returns storage requests for PVC in GB in database namespace\nUse Case: Storage requirement analysis in database environment",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Storage",
+    "section": "Storage Metrics",
+    "subsection": "4. PVC requests vs limits",
+    "query": "kube_persistentvolumeclaim_resource_requests_storage_bytes{namespace=\"database\"} / (1024^3)",
+    "metadata": {
+      "description": "Returns storage requests for PVC in GB in database namespace",
+      "use_case": "Storage requirement analysis in database environment",
+      "title": "4. PVC requests vs limits"
+    }
+  },
+  {
+    "text": "1. Successful Jobs\nQuery: kube_job_status_succeeded{namespace=\"batch\", job_name=~\".*-migration\"}\nDescription: Returns number of successful migration Jobs in batch namespace\nUse Case: Monitoring migration tasks in batch system",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Job",
+    "section": "Job and CronJob Metrics",
+    "subsection": "1. Successful Jobs",
+    "query": "kube_job_status_succeeded{namespace=\"batch\", job_name=~\".*-migration\"}",
+    "metadata": {
+      "description": "Returns number of successful migration Jobs in batch namespace",
+      "use_case": "Monitoring migration tasks in batch system",
+      "title": "1. Successful Jobs"
+    }
+  },
+  {
+    "text": "2. Failed Jobs\nQuery: kube_job_status_failed{job_name=\"data-backup\"} > 0\nDescription: Returns number of failed Jobs for specific backup task\nUse Case: Alerting about data backup failures",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Job",
+    "section": "Job and CronJob Metrics",
+    "subsection": "2. Failed Jobs",
+    "query": "kube_job_status_failed{job_name=\"data-backup\"} > 0",
+    "metadata": {
+      "description": "Returns number of failed Jobs for specific backup task",
+      "use_case": "Alerting about data backup failures",
+      "title": "2. Failed Jobs"
+    }
+  },
+  {
+    "text": "3. Next CronJob run time\nQuery: kube_cronjob_next_schedule_time{cronjob=\"daily-backup\", namespace=\"backup\"}\nDescription: Returns time of next scheduled run for daily-backup CronJob\nUse Case: Planning and monitoring daily backups",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Job",
+    "section": "Job and CronJob Metrics",
+    "subsection": "3. Next CronJob run time",
+    "query": "kube_cronjob_next_schedule_time{cronjob=\"daily-backup\", namespace=\"backup\"}",
+    "metadata": {
+      "description": "Returns time of next scheduled run for daily-backup CronJob",
+      "use_case": "Planning and monitoring daily backups",
+      "title": "3. Next CronJob run time"
+    }
+  },
+  {
+    "text": "4. Job completion time\nQuery: kube_job_status_completion_time{namespace=\"etl\", job_name=~\".*-daily$\"} - kube_job_status_start_time{namespace=\"etl\", job_name=~\".*-daily$\"}\nDescription: Calculates execution time for daily ETL Jobs\nUse Case: Monitoring ETL task performance and execution time optimization",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Job",
+    "section": "Job and CronJob Metrics",
+    "subsection": "4. Job completion time",
+    "query": "kube_job_status_completion_time{namespace=\"etl\", job_name=~\".*-daily$\"} - kube_job_status_start_time{namespace=\"etl\", job_name=~\".*-daily$\"}",
+    "metadata": {
+      "description": "Calculates execution time for daily ETL Jobs",
+      "use_case": "Monitoring ETL task performance and execution time optimization",
+      "title": "4. Job completion time"
+    }
+  },
+  {
+    "text": "5. CronJob suspension status\nQuery: kube_cronjob_spec_suspend{cronjob=~\".*-backup$\", namespace=\"backup\"} == 1\nDescription: Detects backup CronJobs that are suspended\nUse Case: Identifying disabled backup tasks requiring reactivation",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Job",
+    "section": "Job and CronJob Metrics",
+    "subsection": "5. CronJob suspension status",
+    "query": "kube_cronjob_spec_suspend{cronjob=~\".*-backup$\", namespace=\"backup\"} == 1",
+    "metadata": {
+      "description": "Detects backup CronJobs that are suspended",
+      "use_case": "Identifying disabled backup tasks requiring reactivation",
+      "title": "5. CronJob suspension status"
+    }
+  },
+  {
+    "text": "1. Number of Secrets\nQuery: sum by (namespace) (kube_secret_info{namespace!~\"kube-.*\"})\nDescription: Counts number of Secrets in each namespace, excluding system namespaces\nUse Case: Secret inventory in user namespaces",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "General",
+    "section": "Configuration Metrics",
+    "subsection": "1. Number of Secrets",
+    "query": "sum by (namespace) (kube_secret_info{namespace!~\"kube-.*\"})",
+    "metadata": {
+      "description": "Counts number of Secrets in each namespace, excluding system namespaces",
+      "use_case": "Secret inventory in user namespaces",
+      "title": "1. Number of Secrets"
+    }
+  },
+  {
+    "text": "2. Number of ConfigMaps\nQuery: sum by (namespace) (kube_configmap_info{namespace=\"app-config\"})\nDescription: Counts number of ConfigMaps in app-config namespace\nUse Case: ConfigMap inventory in configuration namespace",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "General",
+    "section": "Configuration Metrics",
+    "subsection": "2. Number of ConfigMaps",
+    "query": "sum by (namespace) (kube_configmap_info{namespace=\"app-config\"})",
+    "metadata": {
+      "description": "Counts number of ConfigMaps in app-config namespace",
+      "use_case": "ConfigMap inventory in configuration namespace",
+      "title": "2. Number of ConfigMaps"
+    }
+  },
+  {
+    "text": "3. Secrets by type\nQuery: kube_secret_type{type=\"kubernetes.io/tls\", namespace=~\".*-prod$\"}\nDescription: Returns TLS type Secrets in production namespaces\nUse Case: TLS certificate inventory requiring expiration monitoring",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "General",
+    "section": "Configuration Metrics",
+    "subsection": "3. Secrets by type",
+    "query": "kube_secret_type{type=\"kubernetes.io/tls\", namespace=~\".*-prod$\"}",
+    "metadata": {
+      "description": "Returns TLS type Secrets in production namespaces",
+      "use_case": "TLS certificate inventory requiring expiration monitoring",
+      "title": "3. Secrets by type"
+    }
+  },
+  {
+    "text": "4. ConfigMaps with specific keys\nQuery: kube_configmap_info{configmap=~\".*-config$\", namespace=\"application\"} * on(namespace, configmap) group_left kube_configmap_metadata_resource_version{namespace=\"application\"}\nDescription: Returns ConfigMaps with '-config' suffix along with resource version information\nUse Case: Monitoring application configuration changes and version audit",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "General",
+    "section": "Configuration Metrics",
+    "subsection": "4. ConfigMaps with specific keys",
+    "query": "kube_configmap_info{configmap=~\".*-config$\", namespace=\"application\"} * on(namespace, configmap) group_left kube_configmap_metadata_resource_version{namespace=\"application\"}",
+    "metadata": {
+      "description": "Returns ConfigMaps with '-config' suffix along with resource version information",
+      "use_case": "Monitoring application configuration changes and version audit",
+      "title": "4. ConfigMaps with specific keys"
+    }
+  },
+  {
+    "text": "1. API request rate\nQuery: sum by(resource, code, verb) (rate(apiserver_request_total{job=\"apiserver\", verb=~\"GET|POST\"}[5m]))\nDescription: Returns GET and POST request rate to API server by resource\nUse Case: Monitoring API server load through CRUD operations",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "API Server",
+    "section": "API Server Metrics",
+    "subsection": "1. API request rate",
+    "query": "sum by(resource, code, verb) (rate(apiserver_request_total{job=\"apiserver\", verb=~\"GET|POST\"}[5m]))",
+    "metadata": {
+      "description": "Returns GET and POST request rate to API server by resource",
+      "use_case": "Monitoring API server load through CRUD operations",
+      "title": "1. API request rate"
+    }
+  },
+  {
+    "text": "2. API response time (99th percentile)\nQuery: histogram_quantile(0.99, sum(rate(apiserver_request_duration_seconds_bucket{job=\"apiserver\", verb=\"GET\"}[5m])) by (verb, le))\nDescription: Returns 99th percentile of API server response time for GET operations\nUse Case: Monitoring read operation performance from API server",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "API Server",
+    "section": "API Server Metrics",
+    "subsection": "2. API response time (99th percentile)",
+    "query": "histogram_quantile(0.99, sum(rate(apiserver_request_duration_seconds_bucket{job=\"apiserver\", verb=\"GET\"}[5m])) by (verb, le))",
+    "metadata": {
+      "description": "Returns 99th percentile of API server response time for GET operations",
+      "use_case": "Monitoring read operation performance from API server",
+      "title": "2. API response time (99th percentile)"
+    }
+  },
+  {
+    "text": "3. API error rate\nQuery: sum(rate(apiserver_request_total{job=\"apiserver\",code=~\"[45]..\", resource=\"pods\"}[5m]))\nDescription: Number of 4xx and 5xx errors per second for pods resource\nUse Case: Monitoring API errors related to pod management",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "API Server",
+    "section": "API Server Metrics",
+    "subsection": "3. API error rate",
+    "query": "sum(rate(apiserver_request_total{job=\"apiserver\",code=~\"[45]..\", resource=\"pods\"}[5m]))",
+    "metadata": {
+      "description": "Number of 4xx and 5xx errors per second for pods resource",
+      "use_case": "Monitoring API errors related to pod management",
+      "title": "3. API error rate"
+    }
+  },
+  {
+    "text": "4. API Server current inflight requests\nQuery: apiserver_current_inflight_requests{request_kind=\"readOnly\", job=\"apiserver\"}\nDescription: Returns current number of requests being processed for read-only operations\nUse Case: Monitoring API server load and detecting bottlenecks",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "API Server",
+    "section": "API Server Metrics",
+    "subsection": "4. API Server current inflight requests",
+    "query": "apiserver_current_inflight_requests{request_kind=\"readOnly\", job=\"apiserver\"}",
+    "metadata": {
+      "description": "Returns current number of requests being processed for read-only operations",
+      "use_case": "Monitoring API server load and detecting bottlenecks",
+      "title": "4. API Server current inflight requests"
+    }
+  },
+  {
+    "text": "5. API Server watch events\nQuery: sum by(group, version, resource) (rate(apiserver_longrunning_gauge{verb=\"WATCH\", job=\"apiserver\"}[5m]))\nDescription: Returns rate of long-running WATCH connections by resource type\nUse Case: Monitoring API server load through controllers and operators",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "API Server",
+    "section": "API Server Metrics",
+    "subsection": "5. API Server watch events",
+    "query": "sum by(group, version, resource) (rate(apiserver_longrunning_gauge{verb=\"WATCH\", job=\"apiserver\"}[5m]))",
+    "metadata": {
+      "description": "Returns rate of long-running WATCH connections by resource type",
+      "use_case": "Monitoring API server load through controllers and operators",
+      "title": "5. API Server watch events"
+    }
+  },
+  {
+    "text": "1. CPU usage\nQuery: rate(container_cpu_usage_seconds_total{container!=\"POD\",container!=\"\", namespace=\"production\"}[5m])\nDescription: Returns CPU usage by containers in production namespace\nUse Case: Monitoring CPU usage in production",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Resources",
+    "section": "Container Resource Metrics",
+    "subsection": "1. CPU usage",
+    "query": "rate(container_cpu_usage_seconds_total{container!=\"POD\",container!=\"\", namespace=\"production\"}[5m])",
+    "metadata": {
+      "description": "Returns CPU usage by containers in production namespace",
+      "use_case": "Monitoring CPU usage in production",
+      "title": "1. CPU usage"
+    }
+  },
+  {
+    "text": "2. Memory usage\nQuery: container_memory_usage_bytes{container!=\"POD\",container!=\"\", pod=~\"nginx-.*\"}\nDescription: Returns memory usage by containers in nginx pods\nUse Case: Monitoring memory usage by web servers",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Resources",
+    "section": "Container Resource Metrics",
+    "subsection": "2. Memory usage",
+    "query": "container_memory_usage_bytes{container!=\"POD\",container!=\"\", pod=~\"nginx-.*\"}",
+    "metadata": {
+      "description": "Returns memory usage by containers in nginx pods",
+      "use_case": "Monitoring memory usage by web servers",
+      "title": "2. Memory usage"
+    }
+  },
+  {
+    "text": "3. Resource limits\nQuery: kube_pod_container_resource_limits{resource=\"cpu\", namespace=\"production\"}\nDescription: Returns CPU limits for containers in production namespace\nUse Case: Checking limit configuration in production",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Resources",
+    "section": "Container Resource Metrics",
+    "subsection": "3. Resource limits",
+    "query": "kube_pod_container_resource_limits{resource=\"cpu\", namespace=\"production\"}",
+    "metadata": {
+      "description": "Returns CPU limits for containers in production namespace",
+      "use_case": "Checking limit configuration in production",
+      "title": "3. Resource limits"
+    }
+  },
+  {
+    "text": "4. Container network I/O\nQuery: rate(container_network_receive_bytes_total{namespace=\"production\", pod=~\"api-.*\"}[5m])\nDescription: Returns rate of received network bytes for API pods in production\nUse Case: Monitoring network traffic for API services in production environment",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Resources",
+    "section": "Container Resource Metrics",
+    "subsection": "4. Container network I/O",
+    "query": "rate(container_network_receive_bytes_total{namespace=\"production\", pod=~\"api-.*\"}[5m])",
+    "metadata": {
+      "description": "Returns rate of received network bytes for API pods in production",
+      "use_case": "Monitoring network traffic for API services in production environment",
+      "title": "4. Container network I/O"
+    }
+  },
+  {
+    "text": "5. Container filesystem usage\nQuery: (container_fs_usage_bytes{container!=\"POD\", mountpoint=\"/var/lib/mysql\", namespace=\"database\"} / container_fs_limit_bytes{container!=\"POD\", mountpoint=\"/var/lib/mysql\", namespace=\"database\"}) * 100\nDescription: Calculates filesystem usage percentage for MySQL in database namespace\nUse Case: Monitoring disk space for databases and alerting before exhaustion",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Resources",
+    "section": "Container Resource Metrics",
+    "subsection": "5. Container filesystem usage",
+    "query": "(container_fs_usage_bytes{container!=\"POD\", mountpoint=\"/var/lib/mysql\", namespace=\"database\"} / container_fs_limit_bytes{container!=\"POD\", mountpoint=\"/var/lib/mysql\", namespace=\"database\"}) * 100",
+    "metadata": {
+      "description": "Calculates filesystem usage percentage for MySQL in database namespace",
+      "use_case": "Monitoring disk space for databases and alerting before exhaustion",
+      "title": "5. Container filesystem usage"
+    }
+  },
+  {
+    "text": "1. Containers without CPU limits\nQuery: count by (namespace)(sum by (namespace,pod,container)(kube_pod_container_info{container!=\"\", namespace!~\"kube-.*\"}) unless sum by (namespace,pod,container)(kube_pod_container_resource_limits{resource=\"cpu\", namespace!~\"kube-.*\"}))\nDescription: Counts containers without CPU limits in application namespaces (excluding system ones)\nUse Case: Identifying containers without resource constraints in application environments",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Advanced",
+    "section": "Advanced Queries",
+    "subsection": "1. Containers without CPU limits",
+    "query": "count by (namespace)(sum by (namespace,pod,container)(kube_pod_container_info{container!=\"\", namespace!~\"kube-.*\"}) unless sum by (namespace,pod,container)(kube_pod_container_resource_limits{resource=\"cpu\", namespace!~\"kube-.*\"}))",
+    "metadata": {
+      "description": "Counts containers without CPU limits in application namespaces (excluding system ones)",
+      "use_case": "Identifying containers without resource constraints in application environments",
+      "title": "1. Containers without CPU limits"
+    }
+  },
+  {
+    "text": "2. CPU overcommit\nQuery: sum(kube_pod_container_resource_limits{resource=\"cpu\", namespace=\"production\"}) - sum(kube_node_status_capacity_cpu_cores)\nDescription: Calculates CPU overcommit in production namespace relative to total cluster capacity\nUse Case: Detecting resource overcommit in production environment",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Advanced",
+    "section": "Advanced Queries",
+    "subsection": "2. CPU overcommit",
+    "query": "sum(kube_pod_container_resource_limits{resource=\"cpu\", namespace=\"production\"}) - sum(kube_node_status_capacity_cpu_cores)",
+    "metadata": {
+      "description": "Calculates CPU overcommit in production namespace relative to total cluster capacity",
+      "use_case": "Detecting resource overcommit in production environment",
+      "title": "2. CPU overcommit"
+    }
+  },
+  {
+    "text": "3. Memory overcommit\nQuery: sum(kube_pod_container_resource_limits{resource=\"memory\", namespace!~\"kube-.*\"}) - sum(kube_node_status_capacity_memory_bytes)\nDescription: Calculates memory overcommit for application namespaces relative to cluster capacity\nUse Case: Detecting memory overcommit in user environments",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Advanced",
+    "section": "Advanced Queries",
+    "subsection": "3. Memory overcommit",
+    "query": "sum(kube_pod_container_resource_limits{resource=\"memory\", namespace!~\"kube-.*\"}) - sum(kube_node_status_capacity_memory_bytes)",
+    "metadata": {
+      "description": "Calculates memory overcommit for application namespaces relative to cluster capacity",
+      "use_case": "Detecting memory overcommit in user environments",
+      "title": "3. Memory overcommit"
+    }
+  },
+  {
+    "text": "4. Top containers by CPU\nQuery: topk(10, rate(container_cpu_usage_seconds_total{container!=\"POD\",container!=\"\", namespace=\"production\"}[5m]))\nDescription: Top 10 containers with highest CPU usage in production namespace\nUse Case: Identifying containers consuming most CPU in production environment",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Advanced",
+    "section": "Advanced Queries",
+    "subsection": "4. Top containers by CPU",
+    "query": "topk(10, rate(container_cpu_usage_seconds_total{container!=\"POD\",container!=\"\", namespace=\"production\"}[5m]))",
+    "metadata": {
+      "description": "Top 10 containers with highest CPU usage in production namespace",
+      "use_case": "Identifying containers consuming most CPU in production environment",
+      "title": "4. Top containers by CPU"
+    }
+  },
+  {
+    "text": "5. Resource utilization ratio\nQuery: (container_memory_usage_bytes{container!=\"POD\", namespace=\"production\"} / kube_pod_container_resource_limits{resource=\"memory\", namespace=\"production\"}) * 100\nDescription: Percentage memory usage relative to limits in production namespace\nUse Case: Monitoring resource utilization efficiency in production",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Advanced",
+    "section": "Advanced Queries",
+    "subsection": "5. Resource utilization ratio",
+    "query": "(container_memory_usage_bytes{container!=\"POD\", namespace=\"production\"} / kube_pod_container_resource_limits{resource=\"memory\", namespace=\"production\"}) * 100",
+    "metadata": {
+      "description": "Percentage memory usage relative to limits in production namespace",
+      "use_case": "Monitoring resource utilization efficiency in production",
+      "title": "5. Resource utilization ratio"
+    }
+  },
+  {
+    "text": "6. Nodes with highest pod density\nQuery: topk(5, count by (node) (kube_pod_info{namespace!~\"kube-.*\"}) / on(node) kube_node_status_capacity_pods)\nDescription: Top 5 nodes with highest pod capacity utilization ratio\nUse Case: Load balancing analysis and identifying overloaded nodes",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Advanced",
+    "section": "Advanced Queries",
+    "subsection": "6. Nodes with highest pod density",
+    "query": "topk(5, count by (node) (kube_pod_info{namespace!~\"kube-.*\"}) / on(node) kube_node_status_capacity_pods)",
+    "metadata": {
+      "description": "Top 5 nodes with highest pod capacity utilization ratio",
+      "use_case": "Load balancing analysis and identifying overloaded nodes",
+      "title": "6. Nodes with highest pod density"
+    }
+  },
+  {
+    "text": "7. Resource efficiency score\nQuery: avg by (namespace) ((container_memory_usage_bytes{container!=\"POD\", namespace!~\"kube-.*\"} / kube_pod_container_resource_requests{resource=\"memory\", namespace!~\"kube-.*\"}) + (rate(container_cpu_usage_seconds_total{container!=\"POD\", namespace!~\"kube-.*\"}[5m]) / kube_pod_container_resource_requests{resource=\"cpu\", namespace!~\"kube-.*\"})) / 2\nDescription: Calculates average resource utilization efficiency score (CPU and memory) relative to requests in application namespaces\nUse Case: Resource request optimization and identifying over- or under-provisioned applications",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Advanced",
+    "section": "Advanced Queries",
+    "subsection": "7. Resource efficiency score",
+    "query": "avg by (namespace) ((container_memory_usage_bytes{container!=\"POD\", namespace!~\"kube-.*\"} / kube_pod_container_resource_requests{resource=\"memory\", namespace!~\"kube-.*\"}) + (rate(container_cpu_usage_seconds_total{container!=\"POD\", namespace!~\"kube-.*\"}[5m]) / kube_pod_container_resource_requests{resource=\"cpu\", namespace!~\"kube-.*\"})) / 2",
+    "metadata": {
+      "description": "Calculates average resource utilization efficiency score (CPU and memory) relative to requests in application namespaces",
+      "use_case": "Resource request optimization and identifying over- or under-provisioned applications",
+      "title": "7. Resource efficiency score"
+    }
+  },
+  {
+    "text": "1. Pods in Terminating state\nQuery: count(kube_pod_deletion_timestamp{namespace!~\"kube-.*\"}) by (namespace, pod) * count(kube_pod_status_reason{reason=\"NodeLost\", namespace!~\"kube-.*\"} == 0) by (namespace, pod) > 0\nDescription: Detects pods in Terminating state in application namespaces\nUse Case: Alerting about pods stuck in Terminating outside system namespaces",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Alert",
+    "section": "Alert Queries",
+    "subsection": "1. Pods in Terminating state",
+    "query": "count(kube_pod_deletion_timestamp{namespace!~\"kube-.*\"}) by (namespace, pod) * count(kube_pod_status_reason{reason=\"NodeLost\", namespace!~\"kube-.*\"} == 0) by (namespace, pod) > 0",
+    "metadata": {
+      "description": "Detects pods in Terminating state in application namespaces",
+      "use_case": "Alerting about pods stuck in Terminating outside system namespaces",
+      "title": "1. Pods in Terminating state"
+    }
+  },
+  {
+    "text": "2. Pods in Unknown state\nQuery: sum(kube_pod_status_phase{phase=\"Unknown\", namespace=\"production\"}) by (namespace, pod) or (count(kube_pod_deletion_timestamp{namespace=\"production\"}) by (namespace, pod) * sum(kube_pod_status_reason{reason=\"NodeLost\", namespace=\"production\"}) by(namespace, pod))\nDescription: Detects pods in Unknown state in production namespace\nUse Case: Alerting about pods in unknown state in production",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Alert",
+    "section": "Alert Queries",
+    "subsection": "2. Pods in Unknown state",
+    "query": "sum(kube_pod_status_phase{phase=\"Unknown\", namespace=\"production\"}) by (namespace, pod) or (count(kube_pod_deletion_timestamp{namespace=\"production\"}) by (namespace, pod) * sum(kube_pod_status_reason{reason=\"NodeLost\", namespace=\"production\"}) by(namespace, pod))",
+    "metadata": {
+      "description": "Detects pods in Unknown state in production namespace",
+      "use_case": "Alerting about pods in unknown state in production",
+      "title": "2. Pods in Unknown state"
+    }
+  },
+  {
+    "text": "3. High restart count\nQuery: increase(kube_pod_container_status_restarts_total{namespace=\"production\", container=~\"app.*\"}[1h]) > 5\nDescription: Application containers with more than 5 restarts within an hour in production\nUse Case: Detecting problematic applications in production",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Alert",
+    "section": "Alert Queries",
+    "subsection": "3. High restart count",
+    "query": "increase(kube_pod_container_status_restarts_total{namespace=\"production\", container=~\"app.*\"}[1h]) > 5",
+    "metadata": {
+      "description": "Application containers with more than 5 restarts within an hour in production",
+      "use_case": "Detecting problematic applications in production",
+      "title": "3. High restart count"
+    }
+  },
+  {
+    "text": "4. Deployments with missing replicas\nQuery: (kube_deployment_spec_replicas{namespace=\"production\"} - kube_deployment_status_replicas_available{namespace=\"production\"}) / kube_deployment_spec_replicas{namespace=\"production\"} * 100 > 20\n```\n**_DESCRIPTION**: Deployments in production with more than 20% missing replicas  \n**Function**: `kube_deployment_spec_replicas`, `kube_deployment_status_replicas_available`  \n**Attributes**: `namespace`, `deployment`  \n**Returns**: Deployments with availability issues in production environment  \n**Use Case**: Alerting about critical application availability issues in production  \n\n### 5. High memory usage alert\n```promql\n(container_memory_usage_bytes{container!=\"POD\", namespace=\"production\"} / kube_pod_container_resource_limits{resource=\"memory\", namespace=\"production\"}) * 100 > 90\nDescription: Containers in production using more than 90% of memory limit\nUse Case: Alerting about critical memory usage before OOM Kill",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Alert",
+    "section": "Alert Queries",
+    "subsection": "4. Deployments with missing replicas",
+    "query": "(kube_deployment_spec_replicas{namespace=\"production\"} - kube_deployment_status_replicas_available{namespace=\"production\"}) / kube_deployment_spec_replicas{namespace=\"production\"} * 100 > 20\n```\n**_DESCRIPTION**: Deployments in production with more than 20% missing replicas  \n**Function**: `kube_deployment_spec_replicas`, `kube_deployment_status_replicas_available`  \n**Attributes**: `namespace`, `deployment`  \n**Returns**: Deployments with availability issues in production environment  \n**Use Case**: Alerting about critical application availability issues in production  \n\n### 5. High memory usage alert\n```promql\n(container_memory_usage_bytes{container!=\"POD\", namespace=\"production\"} / kube_pod_container_resource_limits{resource=\"memory\", namespace=\"production\"}) * 100 > 90",
+    "metadata": {
+      "description": "Containers in production using more than 90% of memory limit",
+      "use_case": "Alerting about critical memory usage before OOM Kill",
+      "title": "4. Deployments with missing replicas"
+    }
+  },
+  {
+    "text": "6. Persistent Volume nearing capacity\nQuery: (kubelet_volume_stats_used_bytes{namespace!~\"kube-.*\"} / kubelet_volume_stats_capacity_bytes{namespace!~\"kube-.*\"}) * 100 > 85\nDescription: Persistent Volumes in application namespaces used more than 85%\nUse Case: Alerting about filling volumes before running out of disk space",
+    "source": "markdown",
+    "chunk_type": "detailed_query",
+    "category": "Alert",
+    "section": "Alert Queries",
+    "subsection": "6. Persistent Volume nearing capacity",
+    "query": "(kubelet_volume_stats_used_bytes{namespace!~\"kube-.*\"} / kubelet_volume_stats_capacity_bytes{namespace!~\"kube-.*\"}) * 100 > 85",
+    "metadata": {
+      "description": "Persistent Volumes in application namespaces used more than 85%",
+      "use_case": "Alerting about filling volumes before running out of disk space",
+      "title": "6. Persistent Volume nearing capacity"
+    }
+  },
+  {
+    "text": "Table of Contents\n\n1. [Introduction](#introduction)\n2. [PromQL and Kubernetes Basics](#promql-and-kubernetes-basics)\n3. [Pod Metrics](#pod-metrics)\n4. [Deployment Metrics](#deployment-metrics)\n5. [Node Metrics](#node-metrics)\n6. [Service and Endpoint Metrics](#service-and-endpoint-metrics)\n7. [StatefulSet and DaemonSet Metrics](#statefulset-and-daemonset-metrics)\n8. [Namespace Metrics](#namespace-metrics)\n9. [Storage Metrics](#storage-metrics)\n10. [Job and CronJob Metrics](#job-and-cronjob-metrics)\n11. [Configuration Metrics](#configuration-metrics)\n12. [API Server Metrics](#api-server-metrics)\n13. [Container Resource Metrics](#container-resource-metrics)\n14. [Advanced Queries](#advanced-queries)\n15. [Alert Queries](#alert-queries)\n16. [Best Practices](#best-practices)",
+    "source": "markdown",
+    "chunk_type": "context",
+    "category": "General",
+    "section": "Table of Contents",
+    "subsection": null,
+    "query": null,
+    "metadata": {
+      "chunk_index": 0,
+      "total_chunks_in_section": 1
+    }
+  },
+  {
+    "text": "Introduction\n\nThis document provides a comprehensive guide to PromQL (Prometheus Query Language) queries for monitoring Kubernetes clusters. It has been specifically designed for use in RAG (Retrieval-Augmented Generation) systems to enable LLMs to generate precise PromQL queries based on user questions.\n\nEach query includes:\n- **PromQL Query**: Exact syntax to execute\n- **Function Description**: What the query does\n- **Attributes/Labels**: What data is available\n- **Returns**: What you will receive as a result\n- **Use Case**: When to use the specific query",
+    "source": "markdown",
+    "chunk_type": "context",
+    "category": "General",
+    "section": "Introduction",
+    "subsection": null,
+    "query": null,
+    "metadata": {
+      "chunk_index": 0,
+      "total_chunks_in_section": 1
+    }
+  },
+  {
+    "text": "PromQL and Kubernetes Basics\n\n### Key Concepts:\n- **Metrics**: Numeric time series data\n- **Labels**: Key-value pairs identifying metrics\n- **Selectors**: Filters to select specific metrics\n- **Functions**: Operators to manipulate data (sum, rate, histogram_quantile)\n\n### Metrics Sources:\n- **kube-state-metrics**: Kubernetes object state metrics\n- **cAdvisor**: Container resource metrics\n- **API Server**: Kubernetes API performance metrics",
+    "source": "markdown",
+    "chunk_type": "context",
+    "category": "General",
+    "section": "PromQL and Kubernetes Basics",
+    "subsection": null,
+    "query": null,
+    "metadata": {
+      "chunk_index": 0,
+      "total_chunks_in_section": 1
+    }
+  },
+  {
+    "text": "Best Practices\n\n### 1. Query Optimization\n- Use label selectors to limit query scope\n- Avoid queries without filters on large clusters\n- Use `rate()` function for counter type metrics\n- Group results using `by` clause when possible\n\n### 2. Optimization Examples\n```promql\n# Bad - without filters\nsum(kube_pod_info)\n\n# Good - with filters\nsum(kube_pod_info{namespace=\"production\"})\n\n# Very good - with grouping\nsum by (namespace) (kube_pod_info{namespace=~\"prod.* \"})\n```\n\n### 3. High Cardinality Label Monitoring\n- Avoid labels with high number of unique values\n- Use `label_replace()` to normalize labels\n- Monitor metric cardinality\n\n### 4. Queries for Different Use Cases\n\n#### Question: \"How many pods are running in production namespace?\"\n```promql\nsum(kube_pod_status_phase{phase=\"Running\", namespace=\"production\"})\n```\n\n#### Question: \"Which deployments have issues?\"\n```promql\nkube_deployment_spec_replicas - kube_deployment_status_replicas_available > 0\n```\n\n#### Question: \"What is the CPU usage in the cluster?\"\n```promql\nsum(rate(container_cpu_usage_seconds_total{container!=\"POD\"}[5m])) by (namespace)\n```\n\n#### Question: \"Which nodes are unavailable?\"\n```promql\nkube_node_status_condition{condition=\"Ready\", status=\"false\"}\n```\n\n### 5.",
+    "source": "markdown",
+    "chunk_type": "context",
+    "category": "General",
+    "section": "Best Practices",
+    "subsection": null,
+    "query": null,
+    "metadata": {
+      "chunk_index": 0,
+      "total_chunks_in_section": 3
+    }
+  },
+  {
+    "text": "Best Practices\n\ner_cpu_usage_seconds_total{container!=\"POD\"}[5m])) by (namespace)\n```\n\n#### Question: \"Which nodes are unavailable?\"\n```promql\nkube_node_status_condition{condition=\"Ready\", status=\"false\"}\n```\n\n### 5. Alert Structure\n```yaml\ngroups:\n- name: kubernetes-pods\n  rules:\n  - alert: PodCrashLooping\n    expr: increase(kube_pod_container_status_restarts_total[1h]) > 5\n    for: 5m\n    labels:\n      severity: warning\n    annotations:\n      summary: \"Pod {{ $labels.pod }} is crash looping\"\n      description: \"Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} has restarted {{ $value }} times in the last hour. \"\n```\n\n### 6. Helper Functions\n\n#### Aggregation Functions:\n- `sum()` - sum of values\n- `avg()` - average\n- `min()` / `max()` - minimum/maximum\n- `count()` - number of time series\n- `topk()` / `bottomk()` - top/bottom K values\n\n#### Time Functions:\n- `rate()` - rate per second\n- `increase()` - increase over time\n- `changes()` - number of changes\n- `delta()` - difference between first and last value\n\n#### Comparison Functions:\n- `>`, `<`, `>=`, `<=`, `==`, `!=` - comparison operators\n- `and`, `or`, `unless` - logical operators\n\n### 7. Query Debugging\n- Use Prometheus UI to test queries\n- Check metric availability through `/metrics` endpoint\n- Use `up` metric to check scraping status\n- Monitor Prometheus logs for configuration errors\n\n---\n\nThis document provides a comprehensive knowledge base for RAG systems to generate PromQL queries in the context of Kubernetes monitoring.",
+    "source": "markdown",
+    "chunk_type": "context",
+    "category": "General",
+    "section": "Best Practices",
+    "subsection": null,
+    "query": null,
+    "metadata": {
+      "chunk_index": 1,
+      "total_chunks_in_section": 3
+    }
+  },
+  {
+    "text": "Best Practices\n\ntatus\n- Monitor Prometheus logs for configuration errors\n\n---\n\nThis document provides a comprehensive knowledge base for RAG systems to generate PromQL queries in the context of Kubernetes monitoring. Each query is documented from a practical application perspective and can be easily adapted to specific user needs.",
+    "source": "markdown",
+    "chunk_type": "context",
+    "category": "General",
+    "section": "Best Practices",
+    "subsection": null,
+    "query": null,
+    "metadata": {
+      "chunk_index": 2,
+      "total_chunks_in_section": 3
+    }
+  }
+]
