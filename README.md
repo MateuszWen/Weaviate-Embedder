@@ -416,7 +416,7 @@ main()
 5. **Ollama Integration** - utilizes local AI models
 6. **Error Handling** - proper error handling and connection closing
 
-## Docker Configuration for Weaviate + Ollama
+## Docker Configuration for Weaviate
 
 ```yaml
 services:
